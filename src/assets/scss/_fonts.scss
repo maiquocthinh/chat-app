@@ -1,0 +1,73 @@
+@font-face {
+	font-display: swap;
+	font-family: bureau;
+	font-style: normal;
+	font-weight: 700;
+	src: url(../fonts/bureau_grot_condensed_black.woff) format('woff'),
+		url(../fonts/bureau_grot_condensed_black.ttf) format('truetype');
+}
+
+@font-face {
+	font-display: swap;
+	font-family: bureau;
+	font-style: normal;
+	font-weight: 500;
+	src: url(../fonts/bureau_grot_black.woff) format('woff'), url(../fonts/bureau_grot_black.ttf) format('truetype');
+}
+
+@font-face {
+	font-display: swap;
+	font-family: bureau;
+	font-style: normal;
+	font-weight: 400;
+	src: url(../fonts/bureau_grot_wide_book.woff) format('woff'),
+		url(../fonts/bureau_grot_wide_book.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: tg-frekuent-mono;
+	font-weight: 100;
+	src: url(../fonts/otf/TG-Frekuent-Mono-UltraLight.otf) format('opentype'),
+		url(../fonts/woff/TG-Frekuent-Mono-UltraLight.woff) format('woff'),
+		url(../fonts/ttf/TG-Frekuent-Mono-UltraLight.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: tg-frekuent-mono;
+	font-weight: 300;
+	src: url(../fonts/otf/TG-Frekuent-Mono-Light.otf) format('opentype'),
+		url(../fonts/woff/TG-Frekuent-Mono-Light.woff) format('woff'),
+		url(../fonts/ttf/TG-Frekuent-Mono-Light.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: tg-frekuent-mono;
+	font-weight: 400;
+	src: url(../fonts/otf/TG-Frekuent-Mono-Regular.otf) format('opentype'),
+		url(../fonts/woff/TG-Frekuent-Mono-Regular.woff) format('woff'),
+		url(../fonts/ttf/TG-Frekuent-Mono-Regular.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: tg-frekuent-mono;
+	font-weight: 500;
+	src: url(../fonts/otf/TG-Frekuent-Mono-Medium.otf) format('opentype'),
+		url(../fonts/woff/TG-Frekuent-Mono-Medium.woff) format('woff'),
+		url(../fonts/ttf/TG-Frekuent-Mono-Medium.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: tg-frekuent-mono;
+	font-weight: 700;
+	src: url(../fonts/otf/TG-Frekuent-Mono-Bold.otf) format('opentype'),
+		url(../fonts/woff/TG-Frekuent-Mono-Bold.woff) format('woff'),
+		url(../fonts/ttf/TG-Frekuent-Mono-Bold.ttf) format('truetype');
+}
+
+@font-face {
+	font-family: tg-frekuent-mono;
+	font-weight: 900;
+	src: url(../fonts/otf/TG-Frekuent-Mono-ExtraBold.otf) format('opentype'),
+		url(../fonts/woff/TG-Frekuent-Mono-ExtraBold.woff) format('woff'),
+		url(../fonts/ttf/TG-Frekuent-Mono-ExtraBold.ttf) format('truetype');
+}

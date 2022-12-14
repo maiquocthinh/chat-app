@@ -1,0 +1,91 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+.user-message-box {
+	display: flex;
+	align-items: center;
+	height: 74px;
+	border: 2px solid $border-color;
+	background-color: $dark-yellow-color;
+	cursor: pointer;
+
+	.user-message-box__avatar {
+		margin: 0 6px;
+		height: 45px;
+		width: 45px;
+		min-width: 45px;
+		border: 2px solid $border-color;
+		border-radius: 100%;
+		position: relative;
+
+		img {
+			width: 100%;
+			border-radius: 100%;
+		}
+
+		.user-status {
+			height: 10px;
+			width: 10px;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			background-color: #06d6a0;
+			border-radius: 100%;
+			border: 2px solid #1b3136;
+		}
+	}
+
+	.user-message-box__info {
+		display: flex;
+		align-items: center;
+		height: 100%;
+
+		.details {
+			margin: 0 6px;
+			display: flex;
+			flex-direction: column;
+
+			.user-name {
+				font-size: 1.3rem;
+			}
+			.user-latest-message {
+				font-size: 1.1rem;
+				line-height: 2;
+				@include overflow-line;
+			}
+		}
+		.date-and-actions {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+			width: 54px;
+			min-width: 54px;
+			padding: 0 2px;
+			position: relative;
+
+			.date {
+				font-size: 0.9rem;
+			}
+
+			.action-toggle {
+				@include flexCenter;
+
+				&:hover {
+					color: #3c75ba;
+				}
+			}
+
+			.new-message-count {
+				position: absolute;
+				top: -8px;
+				right: -8px;
+				height: 20px;
+				width: 20px;
+				background-color: $green-color;
+				border: 2px solid $border-color;
+				font-size: 1rem;
+				@include flexCenter;
+			}
+		}
+	}
+}

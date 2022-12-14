@@ -1,0 +1,63 @@
+@import './variables';
+
+@mixin transform-translate($x, $y) {
+	-webkit-transform: translate($x, $y);
+	-moz-transform: translate($x, $y);
+	-ms-transform: translate($x, $y);
+	transform: translate($x, $y);
+}
+
+@mixin flexCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin float-animation($x, $y) {
+	-webkit-transition: box-shadow 200ms ease, -webkit-transform 200ms ease;
+	transition: box-shadow 200ms ease, transform 200ms ease;
+
+	&:hover {
+		box-shadow: -$x $y 0 $box-shadow-color;
+		@include transform-translate($x/2, -$y/2);
+	}
+}
+
+@mixin rotate-animation($time: 2s, $type: linear) {
+	animation: rotation $time infinite $type;
+
+	@keyframes rotation {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(359deg);
+		}
+	}
+}
+
+@mixin overflow-line($line: 1) {
+	display: -webkit-box;
+	-webkit-line-clamp: $line;
+	-webkit-box-flex: 1;
+	-webkit-box-orient: vertical;
+	overflow-y: hidden;
+}
+
+@mixin mobile {
+	@media (max-width: #{$mobile-width - 1px}) or (max-width: #{$tablet-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$desktop-width}) {
+		@content;
+	}
+}

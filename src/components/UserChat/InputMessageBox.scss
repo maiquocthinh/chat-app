@@ -1,0 +1,22 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+.input-message-box {
+	display: flex;
+	align-items: center;
+	position: relative;
+
+	> * {
+		margin: 0 4px;
+	}
+
+	&__input {
+		flex-grow: 1;
+		width: 100%;
+	}
+
+	.EmojiPickerReact.epr-main {
+		position: absolute;
+		bottom: calc(100% + 16px);
+		left: 0;
+	}
+}

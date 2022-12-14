@@ -1,0 +1,27 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+input {
+	border: none;
+	outline: none;
+	height: 42px;
+	border: 2px solid $border-color;
+	//border-radius: 8px
+	padding: 0 12px;
+	font-family: tg-frekuent-mono, monospace, monospace;
+	font-weight: 500;
+	font-size: 1.6rem;
+	-webkit-transition: box-shadow 200ms ease, -webkit-transform 200ms ease;
+	transition: box-shadow 200ms ease, transform 200ms ease;
+
+	&::placeholder {
+		font-family: tg-frekuent-mono, monospace, monospace;
+		font-size: 1.4rem;
+	}
+
+	&:focus {
+		border-color: $violet-color;
+		caret-color: $violet-color;
+		box-shadow: -3px 3px 0 lighten($violet-color, 3);
+		@include transform-translate(2px, -2px);
+	}
+}

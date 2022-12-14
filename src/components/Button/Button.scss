@@ -1,0 +1,157 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+$primary-color: #3c75ba;
+$danger-color: #ea574d;
+$warning-color: #f8c82a;
+$success-color: #82ceca;
+
+.button {
+	@include flexCenter;
+	display: inline-flex;
+	margin: 0;
+	//padding: 14px 16px;
+	min-height: 28px;
+	min-width: 42px;
+	font-size: 1.6rem;
+	font-weight: 600;
+	color: $text-color;
+	outline: none;
+	border: 2px solid $border-color;
+	border-radius: 2px;
+	cursor: pointer;
+	user-select: none;
+	text-decoration: none;
+	overflow: hidden;
+	-webkit-transition: box-shadow 200ms ease, -webkit-transform 200ms ease;
+	transition: box-shadow 200ms ease, transform 200ms ease;
+
+	&.small {
+		height: 28px;
+		min-width: 28px;
+	}
+	&.medium {
+		height: 38px;
+		min-width: 38px;
+	}
+	&.large {
+		height: 48px;
+		min-width: 48px;
+	}
+
+	&.contained {
+		&.primary {
+			background-color: $primary-color;
+		}
+		&.danger {
+			background-color: $danger-color;
+		}
+		&.warning {
+			background-color: $warning-color;
+		}
+		&.success {
+			background-color: $success-color;
+		}
+		&.violet {
+			background-color: $violet-color;
+		}
+
+		&:hover {
+			box-shadow: -4px 4px 0 $box-shadow-color;
+			@include transform-translate(2px, -2px);
+		}
+	}
+
+	&.text {
+		border: none;
+		background-color: transparent;
+
+		&.primary {
+			color: $primary-color;
+		}
+		&.danger {
+			color: $danger-color;
+		}
+		&.warning {
+			color: $warning-color;
+		}
+		&.success {
+			color: $success-color;
+		}
+		&.violet {
+			color: $violet-color;
+		}
+
+		&:hover {
+			box-shadow: none;
+			-webkit-transform: none;
+			-moz-transform: none;
+			-ms-transform: none;
+			transform: none;
+		}
+	}
+
+	&.outlined {
+		background-color: transparent;
+
+		&.primary {
+			color: $primary-color;
+			border: 2px solid $primary-color;
+
+			&:hover {
+				box-shadow: -4px 4px 0 $primary-color;
+			}
+		}
+		&.danger {
+			color: $danger-color;
+			border: 2px solid $danger-color;
+
+			&:hover {
+				box-shadow: -4px 4px 0 $danger-color;
+			}
+		}
+		&.warning {
+			color: $warning-color;
+			border: 2px solid $warning-color;
+
+			&:hover {
+				box-shadow: -4px 4px 0 $warning-color;
+			}
+		}
+		&.success {
+			color: $success-color;
+			border: 2px solid $success-color;
+
+			&:hover {
+				box-shadow: -4px 4px 0 $success-color;
+			}
+		}
+		&.violet {
+			color: $violet-color;
+			border: 2px solid $violet-color;
+
+			&:hover {
+				box-shadow: -4px 4px 0 $violet-color;
+			}
+		}
+
+		&:hover {
+			box-shadow: -5px 5px 0 $box-shadow-color;
+			@include transform-translate(2px, -2px);
+		}
+	}
+
+	&[disabled] {
+		opacity: 0.8;
+		border-width: 1.5px;
+		cursor: default;
+
+		&:hover {
+			box-shadow: none;
+			-webkit-transform: none;
+			-moz-transform: none;
+			-ms-transform: none;
+			transform: none;
+		}
+	}
+}
