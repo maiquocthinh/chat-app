@@ -24,10 +24,7 @@ const ChatContent = () => {
 							.fill(0)
 							.map((v, i) => (
 								<li className="online-users__item" key={i}>
-									<UserStatusBox
-										displayName="Thinh"
-										photoURL="http://chatvia-dark.react.themesbrand.com/static/media/avatar-2.feb0f89de58f0ef9b424.jpg"
-									/>
+									<UserStatusBox displayName="Thinh" photoURL="https://i.imgur.com/5WRVkx9.jpg" />
 								</li>
 							))}
 					</ul>

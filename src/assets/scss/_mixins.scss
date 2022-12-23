@@ -61,3 +61,9 @@
 		@content;
 	}
 }
+
+@mixin Responsive($canvas) {
+	@media only screen and (min-width: 0) and (max-width: $canvas) {
+		@content;
+	}
+}

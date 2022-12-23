@@ -7,10 +7,7 @@ const Message = ({ isText = false, isPhoto = false, isVideo = false, isFile = fa
 	return (
 		<div className={`${myMessage ? 'my ' : ''}message`}>
 			<div className="message__avatar">
-				<img
-					src="http://chatvia-dark.react.themesbrand.com/static/media/avatar-3.2cfd5ba6f0dee8d1d076.jpg"
-					alt=""
-				/>
+				<img src="https://i.imgur.com/AOgo2uD.jpg" alt="" />
 				<h5>Ossie Wilson</h5>
 			</div>
 			<div className="message__content">
@@ -24,25 +21,16 @@ const Message = ({ isText = false, isPhoto = false, isVideo = false, isFile = fa
 						<div className="message__content__images">
 							<ul className="list-image">
 								<li className="list-image__item">
-									<img
-										src="http://chatvia-dark.react.themesbrand.com/static/media/img-4.c7a84ad5058b9382090e.jpg"
-										alt=""
-									/>
+									<img src="https://i.imgur.com/PBevzp8.jpg" alt="" />
 								</li>
 								<li className="list-image__item">
-									<img
-										src="http://chatvia-dark.react.themesbrand.com/static/media/img-7.c1d24290e482cebe87d1.jpg"
-										alt=""
-									/>
+									<img src="https://i.imgur.com/o8gMKmy.jpg" alt="" />
 								</li>
 								<li className="list-image__item">
-									<img
-										src="http://chatvia-dark.react.themesbrand.com/static/media/avatar-3.2cfd5ba6f0dee8d1d076.jpg"
-										alt=""
-									/>
+									<img src="https://i.imgur.com/AOgo2uD.jpg" alt="" />
 								</li>
 								<li className="list-image__item">
-									<img src="https://tinno.laborasyon.com/dist/media/img/image3.jpg" alt="" />
+									<img src="https://i.imgur.com/rsDM7w7.jpg" alt="" />
 								</li>
 							</ul>
 						</div>
@@ -83,10 +71,12 @@ const Message = ({ isText = false, isPhoto = false, isVideo = false, isFile = fa
 								<div className="list-file__item">
 									<div className="file-preview">
 										<div className="file-preview__icon">
-											<FileIcon />
+											<FileIcon className="file-preview__icon__icon" />
 										</div>
 										<div className="file-preview__info">
-											<h5 className="file-preview__info__name">admin_v1.0.zip</h5>
+											<h5 className="file-preview__info__name">
+												admin_v1.0_kndanooonnweuwqqo832743247b.zip
+											</h5>
 											<p className="file-preview__info__size">12.5 MB</p>
 										</div>
 										<div className="file-preview__action">

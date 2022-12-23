@@ -7,10 +7,7 @@ const UserMessageBox = ({ ...props }) => {
 	return (
 		<div className="user-message-box" {...props}>
 			<div className="user-message-box__avatar">
-				<img
-					src="http://chatvia-dark.react.themesbrand.com/static/media/avatar-6.dc44eabff29dbd9780cb.jpg"
-					alt=""
-				/>
+				<img src="https://i.imgur.com/Ox0n6HD.jpg" alt="" />
 				<span className="user-status"></span>
 			</div>
 			<div className="user-message-box__info">

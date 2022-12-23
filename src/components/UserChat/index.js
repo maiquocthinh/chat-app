@@ -28,15 +28,12 @@ const UserChat = () => {
 				</div>
 			</div>
 			<div className="user-chat__header">
-				<div className="header__icon-back" onClick={handleClick}>
-					<LeftArrowIcon />
+				<div className="header__icon-back desktop-d-none tablet-d-none" onClick={handleClick}>
+					<LeftArrowIcon width="2.2rem" height="2.2rem" />
 				</div>
 				<div className="header__user">
 					<div className="header__user__avatar">
-						<img
-							src="http://chatvia-dark.react.themesbrand.com/static/media/avatar-3.2cfd5ba6f0dee8d1d076.jpg"
-							alt="abc"
-						/>
+						<img src="https://i.imgur.com/AOgo2uD.jpg" alt="abc" />
 						<span className="user-status"></span>
 					</div>
 					<div className="header__user__info">

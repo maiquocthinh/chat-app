@@ -596,12 +596,12 @@ export const LeftArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, 
 	>
 		<g transform="translate(1 1)">
 			<polygon
-				fill="#63D3FD"
+				fill="#3c75ba"
 				points="255,7.551 50.2,255.017 255,502.484 459.8,502.484 255,255.017 459.8,7.551 	"
 			/>
 			<polygon fill="#3DB9F9" points="255,255.017 255,255.017 502.467,7.551 459.8,7.551 	" />
 			<polygon
-				fill="#FFFFFF"
+				fill="#3c75ba"
 				points="7.533,255.017 255,502.484 306.2,502.484 306.2,502.484 255,502.484 50.2,255.017
 		255,7.551 	"
 			/>

@@ -10,6 +10,10 @@
 		height: 50px;
 		width: 50px;
 		position: relative;
+		@include mobile {
+			height: 40px;
+			width: 40px;
+		}
 
 		img {
 			width: 100%;
@@ -76,6 +80,12 @@
 				display: grid;
 				grid-template-columns: auto auto auto;
 				gap: 6px;
+				@include Responsive(500px) {
+					grid-template-columns: auto auto;
+				}
+				@include Responsive(330px) {
+					grid-template-columns: auto;
+				}
 				&__item {
 					display: flex;
 					align-items: center;
@@ -92,6 +102,10 @@
 				display: grid;
 				grid-template-columns: auto auto;
 				gap: 6px;
+				@include Responsive(500px) {
+					grid-template-columns: auto;
+				}
+
 				&__item {
 					display: flex;
 					align-items: center;
@@ -118,6 +132,10 @@
 
 		&__files {
 			.list-file {
+				display: grid;
+				grid-template-columns: auto;
+				gap: 6px;
+
 				&__item {
 					.file-preview {
 						display: flex;
@@ -126,14 +144,27 @@
 
 						&__icon {
 							padding: 4px;
+							display: flex;
+							align-items: center;
 							background-color: rgba(6, 214, 160, 0.3);
+
+							&__icon {
+								@include mobile {
+									width: 2rem;
+									height: 2rem;
+								}
+							}
 						}
 						&__info {
 							margin: 2px 12px;
+							display: inline-grid;
 
 							&__name {
 								font-size: 1.1rem;
 								font-weight: 600;
+								white-space: nowrap;
+								overflow-x: hidden;
+								text-overflow: ellipsis;
 							}
 							&__size {
 								font-size: 0.9rem;
@@ -142,6 +173,11 @@
 							}
 						}
 						&__action {
+							display: flex;
+							align-items: center;
+							@include mobile {
+								transform: rotate(90deg);
+							}
 						}
 					}
 				}
