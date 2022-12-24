@@ -2,7 +2,7 @@ import React from 'react'
 import Menu from '../../components/Menu'
 import ChatContent from '../../components/ChatContent'
 import UserChat from '../../components/UserChat'
-
+import { ModalPreview } from '../../components/Modal'
 const Home = () => {
 	return (
 		<div className="home">
@@ -13,6 +13,7 @@ const Home = () => {
 					<UserChat></UserChat>
 				</div>
 			</div>
+			<ModalPreview />
 		</div>
 	)
 }

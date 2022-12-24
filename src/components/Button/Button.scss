@@ -1,11 +1,6 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
 
-$primary-color: #3c75ba;
-$danger-color: #ea574d;
-$warning-color: #f8c82a;
-$success-color: #82ceca;
-
 .button {
 	@include flexCenter;
 	display: inline-flex;

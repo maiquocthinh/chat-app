@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { InfoIcon, LeftArrowIcon, LoadingIcon, Logo, MoreIcon2 } from '../../assets/images/svgicon'
 import Button from '../Button'
 import InputMessageBox from './InputMessageBox'
 import Message from './Message'
+import { ModalContext } from '../../context/ModalContext'
+import Modal from '../Modal'
 
 const UserChat = () => {
+	const { openModal, setOpenModal } = useContext(ModalContext)
 	const handleClick = () => {
 		const chatContentDoc = document.querySelector('.chat-content')
 		chatContentDoc.classList.remove('mobile-d-none')
@@ -42,7 +45,11 @@ const UserChat = () => {
 					</div>
 				</div>
 				<div className="header__action">
-					<Button>
+					<Button
+						onClick={() => {
+							setOpenModal(true)
+						}}
+					>
 						<InfoIcon />
 					</Button>
 					<Button>
@@ -51,19 +58,176 @@ const UserChat = () => {
 				</div>
 			</div>
 			<div className="user-chat__body">
+				{/**
+				messageData
+				{
+					text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...',
+					images:[
+						{
+							name:'sasas',
+							link:'https://i.imgur.com/PBevzp8.jpg'
+						},
+						{
+							name:'sasas',
+							link:'https://i.imgur.com/o8gMKmy.jpg'
+						},
+						{
+							name:'sasas',
+							link:'https://i.imgur.com/AOgo2uD.jpg'
+						},
+						{
+							name:'sasas',
+							link:'https://i.imgur.com/rsDM7w7.jpg'
+						},
+					],
+					videos:[
+						{
+						name:'iframe',
+						link:'https://www.youtube-nocookie.com/embed/c5nhWy7Zoxg',
+						isEmbed: true,
+						},
+						{
+						name:'direct link',
+						link:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+						isEmbed: false,
+						},
+					],
+					files:[
+						{
+							name: 'admin_v1.0_kndanooonnweuwqqo832743247b.zip',
+							link: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip',
+							size: 505988
+						},{
+							name: 'admin_v1.0.zip',
+							link: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample.tar',
+							size: 2244608
+						}
+					]
+				}
+				*/}
 				<div className="messages">
-					<Message isText />
-					<Message isPhoto />
-					<Message isVideo />
-					<Message isFile myMessage />
-					<Message isText myMessage />
-					<Message isPhoto myMessage />
-					<Message isVideo myMessage />
+					<Message
+						isText
+						messageData={{
+							text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...',
+						}}
+					/>
+					<Message
+						isPhoto
+						messageData={{
+							images: [
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/PBevzp8.jpg',
+								},
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/o8gMKmy.jpg',
+								},
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/AOgo2uD.jpg',
+								},
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/rsDM7w7.jpg',
+								},
+							],
+						}}
+					/>
+					<Message
+						isVideo
+						messageData={{
+							videos: [
+								{
+									name: 'iframe',
+									link: 'https://www.youtube-nocookie.com/embed/c5nhWy7Zoxg',
+									isEmbed: true,
+								},
+								{
+									name: 'direct link',
+									link: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+									isEmbed: false,
+								},
+							],
+						}}
+					/>
+					<Message
+						isFile
+						myMessage
+						messageData={{
+							files: [
+								{
+									name: 'admin_v1.0_kndanooonnweuwqqo832743247b.zip',
+									link: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip',
+									size: 505988,
+								},
+								{
+									name: 'admin_v1.0.zip',
+									link: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample.tar',
+									size: 2244608,
+								},
+							],
+						}}
+					/>
+					<Message
+						isText
+						myMessage
+						messageData={{
+							text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...',
+						}}
+					/>
+					<Message
+						isPhoto
+						myMessage
+						messageData={{
+							images: [
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/PBevzp8.jpg',
+								},
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/o8gMKmy.jpg',
+								},
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/AOgo2uD.jpg',
+								},
+								{
+									name: 'sasas',
+									link: 'https://i.imgur.com/rsDM7w7.jpg',
+								},
+							],
+						}}
+					/>
+					<Message
+						isVideo
+						myMessage
+						messageData={{
+							videos: [
+								{
+									name: 'iframe',
+									link: 'https://www.youtube-nocookie.com/embed/c5nhWy7Zoxg',
+									isEmbed: true,
+								},
+								{
+									name: 'direct link',
+									link: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+									isEmbed: false,
+								},
+							],
+						}}
+					/>
 				</div>
 			</div>
 			<div className="user-chat__footer">
 				<InputMessageBox />
 			</div>
+
+			<Modal>
+				<span>Hello there</span>
+			</Modal>
 		</div>
 	)
 }
