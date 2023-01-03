@@ -8,7 +8,7 @@ import { ModalContext } from '../../context/ModalContext'
 import Modal from '../Modal'
 
 const UserChat = () => {
-	const { openModal, setOpenModal } = useContext(ModalContext)
+	const { setOpenModal } = useContext(ModalContext)
 	const handleClick = () => {
 		const chatContentDoc = document.querySelector('.chat-content')
 		chatContentDoc.classList.remove('mobile-d-none')

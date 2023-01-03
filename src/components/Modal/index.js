@@ -63,12 +63,17 @@ const ModalPreview = ({ children, title, isShowState, srcImg, srcVideo, srcIfram
 					{srcImg || modalPreviewOptions?.srcImg ? (
 						<img src={srcImg || modalPreviewOptions?.srcImg} alt="" />
 					) : srcIframe || modalPreviewOptions?.srcIframe ? (
-						<iframe
-							allowFullScreen="allowfullscreen"
-							src={srcIframe || modalPreviewOptions?.srcIframe}
-						></iframe>
+						<div className="modal-preview-video__wrapper">
+							<iframe
+								allowFullScreen="allowfullscreen"
+								src={srcIframe || modalPreviewOptions?.srcIframe}
+								title="Video Iframe"
+							></iframe>
+						</div>
 					) : (
-						<video src={srcVideo || modalPreviewOptions?.srcVideo} controls></video>
+						<div className="modal-preview-video__wrapper">
+							<video src={srcVideo || modalPreviewOptions?.srcVideo} controls></video>
+						</div>
 					)}
 				</div>
 			</div>
