@@ -1,0 +1,42 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.profile {
+	.profile__header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+
+		.profile__header__avatar {
+			height: 120px;
+			width: 120px;
+
+			img {
+				width: 100%;
+				border-radius: 50%;
+				border: 3px solid $border-color;
+			}
+		}
+		.profile__header__name {
+			span {
+				font-size: 1.8rem;
+				font-weight: 700;
+				text-align: center;
+			}
+		}
+		.profile__header__status {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			span {
+				margin-left: 6px;
+				font-size: 1.4rem;
+				font-weight: 700;
+			}
+		}
+	}
+	.profile__body {
+		margin-top: 14px;
+	}
+}

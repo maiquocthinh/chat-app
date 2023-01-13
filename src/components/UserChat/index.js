@@ -4,11 +4,11 @@ import { InfoIcon, LeftArrowIcon, LoadingIcon, Logo, MoreIcon2 } from '../../ass
 import Button from '../Button'
 import InputMessageBox from './InputMessageBox'
 import Message from './Message'
+import Profile from '../Profile'
 import { ModalContext } from '../../context/ModalContext'
-import Modal from '../Modal'
 
 const UserChat = () => {
-	const { setOpenModal } = useContext(ModalContext)
+	const { setOpenModal, setModalOptions } = useContext(ModalContext)
 	const handleClick = () => {
 		const chatContentDoc = document.querySelector('.chat-content')
 		chatContentDoc.classList.remove('mobile-d-none')
@@ -48,6 +48,10 @@ const UserChat = () => {
 					<Button
 						onClick={() => {
 							setOpenModal(true)
+							setModalOptions({
+								title: 'Mai qUoc thinh',
+								children: <Profile />,
+							})
 						}}
 					>
 						<InfoIcon />
@@ -224,10 +228,6 @@ const UserChat = () => {
 			<div className="user-chat__footer">
 				<InputMessageBox />
 			</div>
-
-			<Modal>
-				<span>Hello there</span>
-			</Modal>
 		</div>
 	)
 }

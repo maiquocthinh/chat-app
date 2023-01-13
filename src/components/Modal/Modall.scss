@@ -60,6 +60,7 @@
 			width: 100%;
 			min-height: 100px;
 			border-bottom: 2px solid $border-color;
+			overflow: scroll;
 		}
 
 		&__footer {

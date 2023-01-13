@@ -20,7 +20,7 @@ const Modal = ({ children, title, onModalOpen, onModalClose }) => {
 						<CloseIcon height="2rem" width="2rem" />
 					</button>
 				</div>
-				<div className="modal-dialog__body">{children}</div>
+				<div className="modal-dialog__body">{children || modalOptions?.children}</div>
 				<div className="modal-dialog__footer">
 					<Button
 						color="danger"
@@ -53,12 +53,7 @@ const ModalPreview = ({ children, title, isShowState, srcImg, srcVideo, srcIfram
 					<CloseIcon width="1.8rem" height="1.8rem" />
 				</button>
 			</div>
-			<div
-				className="modal-preview__body"
-				onClick={() => {
-					setOpenModalPreview(false)
-				}}
-			>
+			<div className="modal-preview__body">
 				<div className="modal-preview__wrapper">
 					{srcImg || modalPreviewOptions?.srcImg ? (
 						<img src={srcImg || modalPreviewOptions?.srcImg} alt="" />
