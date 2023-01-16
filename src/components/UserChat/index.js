@@ -49,7 +49,7 @@ const UserChat = () => {
 						onClick={() => {
 							setOpenModal(true)
 							setModalOptions({
-								title: 'Mai qUoc thinh',
+								title: 'Profile',
 								children: <Profile />,
 							})
 						}}

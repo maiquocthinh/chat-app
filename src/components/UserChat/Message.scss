@@ -245,3 +245,49 @@
 		}
 	}
 }
+
+.file-preview {
+	padding: 6px;
+	display: flex;
+	justify-content: space-between;
+	border: 2px solid $border-color;
+
+	&__icon {
+		padding: 4px;
+		display: flex;
+		align-items: center;
+		background-color: rgba(6, 214, 160, 0.3);
+
+		&__icon {
+			@include mobile {
+				width: 2rem;
+				height: 2rem;
+			}
+		}
+	}
+	&__info {
+		margin: 2px 12px;
+		display: inline-grid;
+		flex-grow: 1;
+
+		&__name {
+			font-size: 1.1rem;
+			font-weight: 600;
+			white-space: nowrap;
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+		}
+		&__size {
+			font-size: 0.9rem;
+			font-weight: 500;
+			float: right;
+		}
+	}
+	&__action {
+		display: flex;
+		align-items: center;
+		@include mobile {
+			transform: rotate(90deg);
+		}
+	}
+}

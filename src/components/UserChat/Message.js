@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 
 import './Message.scss'
-import { MoreIcon2, ClockIcon, PlayIcon, FileIcon } from '../../assets/images/svgicon'
+import { MoreIcon2, ClockIcon, PlayIcon } from '../../assets/images/svgicon'
 import { ModalContext } from '../../context/ModalContext'
+import FilePreview from './filePreview'
 
 const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
@@ -88,7 +89,7 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 								{messageData.files.map((file, index) => {
 									return (
 										<div key={index} className="list-file__item">
-											<div className="file-preview">
+											{/*<div className="file-preview">
 												<div className="file-preview__icon">
 													<FileIcon className="file-preview__icon__icon" />
 												</div>
@@ -99,7 +100,8 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 												<div className="file-preview__action">
 													<MoreIcon2 width="1.8rem" height="1.8rem" />
 												</div>
-											</div>
+											</div>*/}
+											<FilePreview file={file} />
 										</div>
 									)
 								})}
