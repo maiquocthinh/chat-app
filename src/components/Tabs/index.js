@@ -8,8 +8,8 @@ const Tabs = ({ children }) => {
 		<div className="tabs">
 			<div className="tabs-header">
 				<ul className="tabs-label">
-					{children
-						.filter((el) => el.type.name === 'Tab')
+					{Array.from(children)
+						.filter((el) => el.props?.label && el.props?.children)
 						.map((el, idx) => (
 							<li
 								key={idx}
@@ -22,8 +22,8 @@ const Tabs = ({ children }) => {
 				</ul>
 			</div>
 			<div className="tabs-content">
-				{children
-					.filter((el) => el.type.name === 'Tab')
+				{Array.from(children)
+					.filter((el) => el.props?.label && el.props?.children)
 					.map((el, idx) => (
 						<div key={idx} className={`tabs-content__item ${activeTab === idx ? 'active' : ''}`}>
 							{el.props?.children}
