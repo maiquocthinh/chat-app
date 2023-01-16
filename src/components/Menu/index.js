@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../Button'
 import { chatsIcon, newchatIcon, usersIcon, profileIcon, settingIcon } from '../../assets/images'
 import { Logo } from '../../assets/images/svgicon'
+import Tooltip from '../Tooltip'
 
 const Menu = () => {
 	return (
@@ -45,13 +46,25 @@ const Menu = () => {
 						</Button>
 					</li>
 					<li className="tools-item">
-						<Button size="large">
-							<img
-								src="https://xsgames.co/randomusers/avatar.php?g=male"
-								alt="Avatar"
-								style={{ height: '100%' }}
-							/>
-						</Button>
+						<Tooltip
+							place="top"
+							trigger="click"
+							component={
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, rerum temporibus?
+									Beatae ex facere facilis maxime porro quam qui quibusdam suscipit ullam voluptates.
+									Dolor hic quos reiciendis sapiente voluptates voluptatum.
+								</p>
+							}
+						>
+							<Button size="large">
+								<img
+									src="https://xsgames.co/randomusers/avatar.php?g=male"
+									alt="Avatar"
+									style={{ height: '100%' }}
+								/>
+							</Button>
+						</Tooltip>
 					</li>
 				</ul>
 			</div>

@@ -1,0 +1,41 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.tooltip-wrapper {
+	position: relative;
+
+	.tooltip {
+		padding: 8px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: $copper-penny-color;
+		border: 2px solid $border-color;
+		min-width: 50px;
+		min-height: 30px;
+		max-height: 70vh;
+		z-index: 1;
+		display: none;
+
+		&.show {
+			display: block;
+		}
+
+		.tooltip-content {
+			width: max-content;
+			max-width: 70vh;
+		}
+
+		.tooltip-arrow {
+			height: 10px;
+			width: 10px;
+			background-color: inherit;
+			transform: rotate(45deg);
+			border-left: 2px solid $border-color;
+			border-top: 2px solid $border-color;
+			position: absolute;
+			top: -6px;
+			left: 50%;
+		}
+	}
+}

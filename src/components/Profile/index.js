@@ -7,7 +7,7 @@ const Profile = () => {
 	return (
 		<div className="profile">
 			<div className="profile__header">
-				<div className="profile__header__avatar">
+				<div className="profile__header__avatar" id="profile-avatar">
 					<img src="https://i.imgur.com/AOgo2uD.jpg" alt="avatar" />
 				</div>
 				<div className="profile__header__name">
