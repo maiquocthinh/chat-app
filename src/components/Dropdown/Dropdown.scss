@@ -1,0 +1,22 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.dropdown-toggle {
+}
+.dropdown-menu {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 40px;
+	min-height: 40px;
+
+	.dropdown-item {
+		padding: 4px;
+		cursor: pointer;
+		transition: background-color 300ms ease-in;
+
+		&:hover {
+			background-color: $primary-color;
+		}
+	}
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Button'
 import { chatsIcon, newchatIcon, usersIcon, profileIcon, settingIcon } from '../../assets/images'
 import { Logo } from '../../assets/images/svgicon'
-import Tooltip from '../Tooltip'
+import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 
 const Menu = () => {
 	return (
@@ -46,25 +46,22 @@ const Menu = () => {
 						</Button>
 					</li>
 					<li className="tools-item">
-						<Tooltip
-							place="top"
-							trigger="click"
-							component={
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, rerum temporibus?
-									Beatae ex facere facilis maxime porro quam qui quibusdam suscipit ullam voluptates.
-									Dolor hic quos reiciendis sapiente voluptates voluptatum.
-								</p>
-							}
-						>
-							<Button size="large">
-								<img
-									src="https://xsgames.co/randomusers/avatar.php?g=male"
-									alt="Avatar"
-									style={{ height: '100%' }}
-								/>
-							</Button>
-						</Tooltip>
+						<Dropdown place="top left">
+							<DropdownTonggle>
+								<Button size="large">
+									<img
+										src="https://xsgames.co/randomusers/avatar.php?g=male"
+										alt="Avatar"
+										style={{ height: '100%' }}
+									/>
+								</Button>
+							</DropdownTonggle>
+							<DropdownMenu>
+								<DropdownItem>Profile</DropdownItem>
+								<DropdownItem>Setting</DropdownItem>
+								<DropdownItem>Log out</DropdownItem>
+							</DropdownMenu>
+						</Dropdown>
 					</li>
 				</ul>
 			</div>

@@ -199,9 +199,8 @@
 
 		&__action {
 			position: absolute;
-			top: 50%;
-			right: -18px;
-			transform: translateY(-50%) rotate(90deg);
+			top: 0;
+			right: -20px;
 		}
 	}
 
@@ -240,7 +239,7 @@
 
 			&__action {
 				right: unset;
-				left: -24px;
+				left: -26px;
 			}
 		}
 	}

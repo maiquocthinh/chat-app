@@ -4,6 +4,7 @@ import './Message.scss'
 import { MoreIcon2, ClockIcon, PlayIcon } from '../../assets/images/svgicon'
 import { ModalContext } from '../../context/ModalContext'
 import FilePreview from './filePreview'
+import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 
 const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
@@ -114,7 +115,17 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 					</div>
 				</div>
 				<div className="message__content__action">
-					<MoreIcon2 height="2rem" width="2rem" />
+					<Dropdown place={`${myMessage ? 'left' : 'right'}`}>
+						<DropdownTonggle>
+							<MoreIcon2 height="2rem" width="2rem" style={{ transform: 'rotate(90deg)' }} />
+						</DropdownTonggle>
+						<DropdownMenu>
+							<DropdownItem>Copy</DropdownItem>
+							<DropdownItem>Save</DropdownItem>
+							<DropdownItem>Forward</DropdownItem>
+							<DropdownItem>Delete</DropdownItem>
+						</DropdownMenu>
+					</Dropdown>
 				</div>
 			</div>
 		</div>

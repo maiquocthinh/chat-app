@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 
 import './Tooltip.scss'
 
-const Tooltip = ({ children, html, component, content, trigger = 'hover', place }) => {
+const Tooltip = ({ children, html, component, content, trigger = 'hover', place = 'bottom left' }) => {
 	const refTooltip = useRef()
 	const refTooltipCotent = useRef()
 	const refTooltipArrow = useRef()
@@ -10,29 +10,62 @@ const Tooltip = ({ children, html, component, content, trigger = 'hover', place 
 	const handleShow = () => {
 		refTooltip.current.classList.add('show')
 		const childElm = refTooltip.current.parentNode.firstChild
-		const tooltipRect = refTooltip.current.getBoundingClientRect()
 		const childElmRect = childElm.getBoundingClientRect()
 
-		refTooltip.current.style.top = childElmRect.height + 10 + 'px'
+		// place
+		switch (place) {
+			case 'top': {
+				refTooltip.current.style.top = 'unset'
+				refTooltip.current.style.bottom = childElm.getBoundingClientRect().height + 16 + 'px'
+				refTooltipArrow.current.style.bottom = '-6px'
+				refTooltipArrow.current.style.top = 'unset'
+				refTooltipArrow.current.style.transform = 'rotate(225deg)'
+				break
+			}
+			case 'bottom': {
+				refTooltip.current.style.top = childElmRect.height + 10 + 'px'
+				break
+			}
+			case 'left': {
+				refTooltip.current.style.left = 'unset'
+				refTooltip.current.style.right = childElmRect.width + 10 + 'px'
+				refTooltipArrow.current.style.transform = 'rotate(135deg)'
+				refTooltipArrow.current.style.left = 'unset'
+				refTooltipArrow.current.style.right = '-6px'
+				refTooltipArrow.current.style.top = '4px'
 
-		// auto tooltip position (left or right)
-		if (tooltipRect.right > window.innerWidth) {
-			refTooltip.current.style.left = 'unset'
-			refTooltip.current.style.right = 0
-		}
-		if (tooltipRect.left < 0) {
-			refTooltip.current.style.right = 'unset'
-			refTooltip.current.style.left = 0
+				break
+			}
+			case 'right': {
+				refTooltip.current.style.right = 'unset'
+				refTooltip.current.style.left = childElmRect.width + 10 + 'px'
+				refTooltipArrow.current.style.transform = 'rotate(-45deg)'
+				refTooltipArrow.current.style.left = '-6px'
+				refTooltipArrow.current.style.rigth = 'unset'
+				refTooltipArrow.current.style.top = '4px'
+				break
+			}
+			default: {
+				if (place?.includes('bottom')) {
+					refTooltip.current.style.top = childElmRect.height + 10 + 'px'
+				} else if (place?.includes('top')) {
+					refTooltip.current.style.top = 'unset'
+					refTooltip.current.style.bottom = childElm.getBoundingClientRect().height + 16 + 'px'
+					refTooltipArrow.current.style.bottom = '-6px'
+					refTooltipArrow.current.style.top = 'unset'
+					refTooltipArrow.current.style.transform = 'rotate(225deg)'
+				}
+				if (place?.includes('left')) {
+					refTooltip.current.style.left = 'unset'
+					refTooltip.current.style.right = 0
+				} else if (place?.includes('right')) {
+					refTooltip.current.style.right = 'unset'
+					refTooltip.current.style.left = 0
+				}
+			}
 		}
 
-		// tooltip position (top)
-		if (place === 'top') {
-			refTooltip.current.style.top = 'unset'
-			refTooltip.current.style.bottom = childElm.getBoundingClientRect().height + 16 + 'px'
-			refTooltipArrow.current.style.bottom = '-6px'
-			refTooltipArrow.current.style.top = 'unset'
-			refTooltipArrow.current.style.transform = 'rotate(225deg)'
-		}
+		const tooltipRect = refTooltip.current.getBoundingClientRect()
 
 		// auto arrow position (mid of childrenELm)
 		if (childElmRect.left < tooltipRect.right && childElmRect.right > tooltipRect.left) {

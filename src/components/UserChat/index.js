@@ -6,6 +6,7 @@ import InputMessageBox from './InputMessageBox'
 import Message from './Message'
 import Profile from '../Profile'
 import { ModalContext } from '../../context/ModalContext'
+import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 
 const UserChat = () => {
 	const { setOpenModal, setModalOptions } = useContext(ModalContext)
@@ -56,9 +57,19 @@ const UserChat = () => {
 					>
 						<InfoIcon />
 					</Button>
-					<Button>
-						<MoreIcon2 />
-					</Button>
+					<Dropdown>
+						<DropdownTonggle>
+							<Button>
+								<MoreIcon2 />
+							</Button>
+						</DropdownTonggle>
+						<DropdownMenu>
+							<DropdownItem>View profile</DropdownItem>
+							<DropdownItem>Archive</DropdownItem>
+							<DropdownItem>Muted</DropdownItem>
+							<DropdownItem>Delete</DropdownItem>
+						</DropdownMenu>
+					</Dropdown>
 				</div>
 			</div>
 			<div className="user-chat__body">
