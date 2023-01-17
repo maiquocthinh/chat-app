@@ -1,4 +1,4 @@
-export const Logo = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const Logo = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -7,6 +7,7 @@ export const Logo = ({ width = '2.6rem', height = '2.6rem', className, style }) 
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<path
 			fill="#57A4FF"
@@ -30,7 +31,7 @@ export const Logo = ({ width = '2.6rem', height = '2.6rem', className, style }) 
 	</svg>
 )
 
-export const MoreIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const MoreIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 210 210"
@@ -39,6 +40,7 @@ export const MoreIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<g id="XMLID_88_">
 			<path
@@ -57,7 +59,7 @@ export const MoreIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 	</svg>
 )
 
-export const MoreIcon2 = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const MoreIcon2 = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -66,6 +68,7 @@ export const MoreIcon2 = ({ width = '2.6rem', height = '2.6rem', className, styl
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<rect x="18.51" y="209.956" fill="#CEE8FA" width="92.099" height="92.099" />
 		<path
@@ -85,7 +88,7 @@ export const MoreIcon2 = ({ width = '2.6rem', height = '2.6rem', className, styl
 	</svg>
 )
 
-export const LoadingIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const LoadingIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -94,6 +97,7 @@ export const LoadingIcon = ({ width = '2.6rem', height = '2.6rem', className, st
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<path
 			fill="#CFF09E"
@@ -194,7 +198,7 @@ C512,281.494,491.259,302.237,465.763,302.237z"
 	</svg>
 )
 
-export const InfoIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const InfoIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -203,6 +207,7 @@ export const InfoIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<polygon
 			fill="#BDDBFF"
@@ -240,7 +245,7 @@ export const InfoIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 	</svg>
 )
 
-export const SimleIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const SimleIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 295.996 295.996"
@@ -249,6 +254,7 @@ export const SimleIcon = ({ width = '2.6rem', height = '2.6rem', className, styl
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<g>
 			<path
@@ -296,7 +302,7 @@ export const SimleIcon = ({ width = '2.6rem', height = '2.6rem', className, styl
 	</svg>
 )
 
-export const PictureIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const PictureIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 485 485"
@@ -305,6 +311,7 @@ export const PictureIcon = ({ width = '2.6rem', height = '2.6rem', className, st
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<g>
 			<g>
@@ -344,7 +351,7 @@ export const PictureIcon = ({ width = '2.6rem', height = '2.6rem', className, st
 	</svg>
 )
 
-export const AttachedIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const AttachedIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -353,6 +360,7 @@ export const AttachedIcon = ({ width = '2.6rem', height = '2.6rem', className, s
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<polygon fill="#7E8488" points="450.982,81.814 345.732,81.814 345.732,7.918 " />
 		<polygon
@@ -374,7 +382,7 @@ export const AttachedIcon = ({ width = '2.6rem', height = '2.6rem', className, s
 	</svg>
 )
 
-export const SendIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const SendIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512.001 512.001"
@@ -383,6 +391,7 @@ export const SendIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<polygon fill="#027372" points="102.537,236.375 150.572,471.15 503.831,40.851 " />
 		<polygon fill="#02ACAB" points="251.97,369.49 150.572,471.15 167.839,323.312 232.546,325.082 " />
@@ -406,7 +415,7 @@ export const SendIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 	</svg>
 )
 
-export const ClockIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const ClockIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 508 508"
@@ -415,6 +424,7 @@ export const ClockIcon = ({ width = '2.6rem', height = '2.6rem', className, styl
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<path
 			fill="#FFFFFF"
@@ -478,7 +488,7 @@ export const ClockIcon = ({ width = '2.6rem', height = '2.6rem', className, styl
 	</svg>
 )
 
-export const PlayIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const PlayIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -487,6 +497,7 @@ export const PlayIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<circle fill="#1FCFC1" cx="256" cy="256" r="245.801" />
 		<polygon fill="#F2F2F2" points="195.825,391.629 376.351,256 195.825,120.371 " />
@@ -521,7 +532,7 @@ export const PlayIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 	</svg>
 )
 
-export const FileIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const FileIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -530,6 +541,7 @@ export const FileIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<path
 			fill="#00384E"
@@ -545,7 +557,7 @@ export const FileIcon = ({ width = '2.6rem', height = '2.6rem', className, style
 	</svg>
 )
 
-export const RightArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const RightArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512.035 512.035"
@@ -554,6 +566,7 @@ export const RightArrowIcon = ({ width = '2.6rem', height = '2.6rem', className,
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<g transform="translate(1 1)">
 			<polygon
@@ -584,7 +597,7 @@ export const RightArrowIcon = ({ width = '2.6rem', height = '2.6rem', className,
 	</svg>
 )
 
-export const LeftArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const LeftArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512.035 512.035"
@@ -593,6 +606,7 @@ export const LeftArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, 
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<g transform="translate(1 1)">
 			<polygon
@@ -625,7 +639,7 @@ export const LeftArrowIcon = ({ width = '2.6rem', height = '2.6rem', className, 
 	</svg>
 )
 
-export const ZoomInIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const ZoomInIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 511.999 511.999"
@@ -634,6 +648,7 @@ export const ZoomInIcon = ({ width = '2.6rem', height = '2.6rem', className, sty
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<path
 			fill="#61ACD2"
@@ -671,7 +686,7 @@ export const ZoomInIcon = ({ width = '2.6rem', height = '2.6rem', className, sty
 	</svg>
 )
 
-export const ZoomOutIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const ZoomOutIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -680,6 +695,7 @@ export const ZoomOutIcon = ({ width = '2.6rem', height = '2.6rem', className, st
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<path
 			fill="#61ACD2"
@@ -716,7 +732,7 @@ export const ZoomOutIcon = ({ width = '2.6rem', height = '2.6rem', className, st
 	</svg>
 )
 
-export const CloseIcon = ({ width = '2.6rem', height = '2.6rem', className, style }) => (
+export const CloseIcon = ({ width = '2.6rem', height = '2.6rem', className, style, ...props }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 512 512"
@@ -725,6 +741,7 @@ export const CloseIcon = ({ width = '2.6rem', height = '2.6rem', className, styl
 		height={height}
 		className={className}
 		style={style}
+		{...props}
 	>
 		<g>
 			<path
