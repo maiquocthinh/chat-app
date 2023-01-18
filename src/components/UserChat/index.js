@@ -1,6 +1,16 @@
 import React, { useContext } from 'react'
 
-import { InfoIcon, LeftArrowIcon, LoadingIcon, Logo, MoreIcon2 } from '../../assets/images/svgicon'
+import {
+	AttachedIcon,
+	InfoIcon,
+	LeftArrowIcon,
+	LoadingIcon,
+	Logo,
+	MoreIcon2,
+	MuteIcon,
+	ProfileIcon,
+	TrashIcon,
+} from '../../assets/images/svgicon'
 import Button from '../Button'
 import InputMessageBox from './InputMessageBox'
 import Message from './Message'
@@ -64,10 +74,18 @@ const UserChat = () => {
 							</Button>
 						</DropdownTonggle>
 						<DropdownMenu>
-							<DropdownItem>View profile</DropdownItem>
-							<DropdownItem>Archive</DropdownItem>
-							<DropdownItem>Muted</DropdownItem>
-							<DropdownItem>Delete</DropdownItem>
+							<DropdownItem>
+								View profile <ProfileIcon height="1.4rem" width="1.4rem" />{' '}
+							</DropdownItem>
+							<DropdownItem>
+								Archive <AttachedIcon height="1.4rem" width="1.4rem" />{' '}
+							</DropdownItem>
+							<DropdownItem>
+								Muted <MuteIcon height="1.4rem" width="1.4rem" />{' '}
+							</DropdownItem>
+							<DropdownItem>
+								Delete <TrashIcon height="1.4rem" width="1.4rem" />{' '}
+							</DropdownItem>
 						</DropdownMenu>
 					</Dropdown>
 				</div>

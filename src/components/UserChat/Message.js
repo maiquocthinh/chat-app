@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 
 import './Message.scss'
-import { MoreIcon2, ClockIcon, PlayIcon } from '../../assets/images/svgicon'
+import { MoreIcon2, ClockIcon, PlayIcon, CopyIcon, SaveIcon, TrashIcon, ShareIcon } from '../../assets/images/svgicon'
 import { ModalContext } from '../../context/ModalContext'
 import FilePreview from './filePreview'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
@@ -120,10 +120,18 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 							<MoreIcon2 height="2rem" width="2rem" style={{ transform: 'rotate(90deg)' }} />
 						</DropdownTonggle>
 						<DropdownMenu>
-							<DropdownItem>Copy</DropdownItem>
-							<DropdownItem>Save</DropdownItem>
-							<DropdownItem>Forward</DropdownItem>
-							<DropdownItem>Delete</DropdownItem>
+							<DropdownItem>
+								Copy <CopyIcon height="1.4rem" width="1.4rem" />
+							</DropdownItem>
+							<DropdownItem>
+								Save <SaveIcon height="1.2rem" width="1.2rem" />
+							</DropdownItem>
+							<DropdownItem>
+								Forward <ShareIcon height="1.3rem" width="1.3rem" />{' '}
+							</DropdownItem>
+							<DropdownItem>
+								Delete <TrashIcon height="1.4rem" width="1.4rem" />
+							</DropdownItem>
 						</DropdownMenu>
 					</Dropdown>
 				</div>
