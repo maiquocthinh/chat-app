@@ -7,7 +7,8 @@ const Tooltip = ({ children, html, component, content, trigger = 'hover', place 
 	const refTooltipCotent = useRef()
 	const refTooltipArrow = useRef()
 
-	const handleShow = () => {
+	const handleShow = (e) => {
+		e.stopPropagation()
 		refTooltip.current.classList.add('show')
 		const childElm = refTooltip.current.parentNode.firstChild
 		const childElmRect = childElm.getBoundingClientRect()

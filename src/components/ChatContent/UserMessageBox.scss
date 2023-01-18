@@ -70,9 +70,9 @@
 			.action-toggle {
 				@include flexCenter;
 
-				&:hover {
-					color: #3c75ba;
-				}
+				//&:hover {
+				//	color: #3c75ba;
+				//}
 			}
 
 			.new-message-count {

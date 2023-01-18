@@ -1,7 +1,8 @@
 import React from 'react'
 
 import './UserMessageBox.scss'
-import { MoreIcon } from '../../assets/images/svgicon'
+import { ChatIcon, MoreIcon, ProfileIcon } from '../../assets/images/svgicon'
+import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 
 const UserMessageBox = ({ ...props }) => {
 	return (
@@ -20,7 +21,20 @@ const UserMessageBox = ({ ...props }) => {
 				<div className="date-and-actions">
 					<span className="date">11:05 AM</span>
 					<div className="action-toggle">
-						<MoreIcon width="2rem" height="2rem" />
+						<Dropdown place="left">
+							<DropdownTonggle>
+								<MoreIcon width="2rem" height="2rem" />
+							</DropdownTonggle>
+
+							<DropdownMenu>
+								<DropdownItem>
+									New Chat <ChatIcon height="1.4rem" width="1.4rem" />
+								</DropdownItem>
+								<DropdownItem>
+									Profile <ProfileIcon height="1.4rem" width="1.4rem" />{' '}
+								</DropdownItem>
+							</DropdownMenu>
+						</Dropdown>
 					</div>
 					<div className="new-message-count">3</div>
 				</div>
