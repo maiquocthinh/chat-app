@@ -4,7 +4,6 @@ import Tooltip from '../Tooltip'
 import './Dropdown.scss'
 
 const Dropdown = ({ children, ...props }) => {
-	console.log(children)
 	return (
 		<Tooltip {...props} trigger="click" component={children[1]}>
 			{children[0]}

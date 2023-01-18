@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../Button'
 import { chatsIcon, newchatIcon, usersIcon, profileIcon, settingIcon } from '../../assets/images'
-import { Logo } from '../../assets/images/svgicon'
+import { Logo, LogoutIcon, ProfileIcon, SettingIcon } from '../../assets/images/svgicon'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 
 const Menu = () => {
@@ -57,9 +57,15 @@ const Menu = () => {
 								</Button>
 							</DropdownTonggle>
 							<DropdownMenu>
-								<DropdownItem>Profile</DropdownItem>
-								<DropdownItem>Setting</DropdownItem>
-								<DropdownItem>Log out</DropdownItem>
+								<DropdownItem>
+									Profile <ProfileIcon height="1.4rem" width="1.4rem" />{' '}
+								</DropdownItem>
+								<DropdownItem>
+									Setting <SettingIcon height="1.4rem" width="1.4rem" />{' '}
+								</DropdownItem>
+								<DropdownItem>
+									Log out <LogoutIcon height="1.4rem" width="1.4rem" />
+								</DropdownItem>
 							</DropdownMenu>
 						</Dropdown>
 					</li>
