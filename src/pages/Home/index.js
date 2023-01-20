@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Menu from '../../components/Menu'
 import ChatContent from '../../components/ChatContent'
 import UserChat from '../../components/UserChat'
 import Modal, { ModalPreview } from '../../components/Modal'
+
 const Home = () => {
 	return (
 		<div className="home">

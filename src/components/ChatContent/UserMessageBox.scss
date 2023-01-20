@@ -38,11 +38,13 @@
 		display: flex;
 		align-items: center;
 		height: 100%;
+		flex-grow: 1;
 
 		.details {
 			margin: 0 6px;
 			display: flex;
 			flex-direction: column;
+			flex-grow: 1;
 
 			.user-name {
 				font-size: 1.3rem;

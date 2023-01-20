@@ -4,19 +4,19 @@ import './UserMessageBox.scss'
 import { ChatIcon, MoreIcon, ProfileIcon } from '../../assets/images/svgicon'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 
-const UserMessageBox = ({ ...props }) => {
+const UserMessageBox = ({ data, ...props }) => {
 	return (
 		<div className="user-message-box" {...props}>
 			<div className="user-message-box__avatar">
-				<img src="https://i.imgur.com/Ox0n6HD.jpg" alt="" />
+				<img src={data?.photoURL} alt="" />
 				<span className="user-status"></span>
 			</div>
 			<div className="user-message-box__info">
 				<div className="details">
-					<h5 className="user-name">Josephin water</h5>
-					<p className="user-latest-message">
+					<h5 className="user-name">{data?.displayName}</h5>
+					{/* <p className="user-latest-message">
 						Hi, i am josephin. How are you.. ! There are many variations of passages.
-					</p>
+					</p> */}
 				</div>
 				<div className="date-and-actions">
 					<span className="date">11:05 AM</span>

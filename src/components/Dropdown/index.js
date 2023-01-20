@@ -17,7 +17,11 @@ const DropdownTonggle = ({ children, ...props }) => (
 	</div>
 )
 const DropdownMenu = ({ children }) => <div className="dropdown-menu">{children}</div>
-const DropdownItem = ({ children }) => <div className="dropdown-item">{children}</div>
+const DropdownItem = ({ children, ...props }) => (
+	<div className="dropdown-item" {...props}>
+		{children}
+	</div>
+)
 
 export default Dropdown
 export { DropdownTonggle, DropdownMenu, DropdownItem }

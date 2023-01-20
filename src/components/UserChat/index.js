@@ -20,6 +20,31 @@ import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdo
 
 const UserChat = () => {
 	const { setOpenModal, setModalOptions } = useContext(ModalContext)
+
+	const showProfile = () => {
+		setOpenModal(true)
+		setModalOptions({
+			title: 'Profile',
+			children: (
+				<Profile
+					data={{
+						displayName: 'quoc thinh',
+						photoURL:
+							'https://www.gravatar.com/avatar/64f5dc909e0616a0f62882517b6170b4?s=64&d=identicon&r=PG&f=1',
+						introduce: 'lorem20',
+						address: 'BRVT/VN',
+						website: 'abc.com',
+						files: [
+							{ name: 'adb.zip', size: 224343 },
+							{ name: 'package.json', size: 124323 },
+							{ name: 'run.exe', size: 624343 },
+						],
+					}}
+				/>
+			),
+		})
+	}
+
 	const handleClick = () => {
 		const chatContentDoc = document.querySelector('.chat-content')
 		chatContentDoc.classList.remove('mobile-d-none')
@@ -56,15 +81,7 @@ const UserChat = () => {
 					</div>
 				</div>
 				<div className="header__action">
-					<Button
-						onClick={() => {
-							setOpenModal(true)
-							setModalOptions({
-								title: 'Profile',
-								children: <Profile />,
-							})
-						}}
-					>
+					<Button onClick={showProfile}>
 						<InfoIcon />
 					</Button>
 					<Dropdown>
@@ -74,7 +91,7 @@ const UserChat = () => {
 							</Button>
 						</DropdownTonggle>
 						<DropdownMenu>
-							<DropdownItem>
+							<DropdownItem onClick={showProfile}>
 								View profile <ProfileIcon height="1.4rem" width="1.4rem" />{' '}
 							</DropdownItem>
 							<DropdownItem>
