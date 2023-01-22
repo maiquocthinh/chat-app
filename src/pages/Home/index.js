@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import Menu from '../../components/Menu'
 import ChatContent from '../../components/ChatContent'
 import UserChat from '../../components/UserChat'

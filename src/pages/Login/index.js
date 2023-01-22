@@ -3,12 +3,22 @@ import React from 'react'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
 import { googleIcon, facebookIcon, twitterIcon } from '../../assets/images'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../firebase/config'
+import {
+	FacebookAuthProvider,
+	getAdditionalUserInfo,
+	GoogleAuthProvider,
+	signInWithEmailAndPassword,
+	signInWithPopup,
+} from 'firebase/auth'
+import { auth, db } from '../../firebase/config'
 import { Link, useNavigate } from 'react-router-dom'
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { nanoid } from 'nanoid'
 
 const Login = () => {
 	const navigate = useNavigate()
+	const ggProvider = new GoogleAuthProvider()
+	const fbProvider = new FacebookAuthProvider()
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -18,6 +28,46 @@ const Login = () => {
 			await signInWithEmailAndPassword(auth, email.value, password.value)
 			navigate('/')
 		} catch (error) {}
+	}
+
+	const handleGgLogin = async () => {
+		const data = await signInWithPopup(auth, ggProvider)
+		const additionalUserInfo = getAdditionalUserInfo(data)
+		const { user } = data
+
+		if (additionalUserInfo?.isNewUser) {
+			await setDoc(doc(db, 'users', user.uid), {
+				uid: user.uid,
+				shortUid: nanoid(7),
+				email: user.email,
+				displayName: user.displayName,
+				photoURL: user.photoURL,
+				providerId: additionalUserInfo.providerId,
+				createAt: serverTimestamp(),
+			})
+		}
+	}
+
+	const handleFbLogin = async () => {
+		const data = await signInWithPopup(auth, fbProvider)
+		const additionalUserInfo = getAdditionalUserInfo(data)
+		const { user } = data
+
+		if (additionalUserInfo?.isNewUser) {
+			await setDoc(doc(db, 'users', user.uid), {
+				uid: user.uid,
+				shortUid: nanoid(7),
+				email: user.email,
+				displayName: user.displayName,
+				photoURL: user.photoURL,
+				providerId: additionalUserInfo.providerId,
+				createAt: serverTimestamp(),
+			})
+		}
+	}
+
+	const handleTwitterLogin = async () => {
+		alert('Developing....')
 	}
 
 	return (
@@ -36,13 +86,13 @@ const Login = () => {
 
 						<p className="seperate"></p>
 						<div className="oauth-group">
-							<Button color="success">
+							<Button color="success" onClick={handleGgLogin}>
 								<img src={googleIcon} alt="Google" style={{ height: '24px' }} />
 							</Button>
-							<Button variant="outlined" color="warning">
+							<Button variant="outlined" color="warning" onClick={handleFbLogin}>
 								<img src={facebookIcon} alt="Facebook" style={{ height: '24px' }} />
 							</Button>
-							<Button color="violet">
+							<Button color="violet" onClick={handleTwitterLogin}>
 								<img src={twitterIcon} alt="Twitter" style={{ height: '24px' }} />
 							</Button>
 						</div>

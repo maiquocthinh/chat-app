@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import EmojiPicker from 'emoji-picker-react'
 
 import './InputMessageBox.scss'
 import Button from '../Button'
 import { AttachedIcon, PictureIcon, SendIcon, SimleIcon } from '../../assets/images/svgicon'
 import Input from '../Input'
+import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../../firebase/config'
+import { AuthContext } from '../../context/AuthContext'
 
-const InputMessageBox = () => {
+const InputMessageBox = ({ chatId }) => {
 	const [messageText, setMessageText] = useState('')
 	const [attached, setAttached] = useState(null)
 	const [photo, setPhoto] = useState(null)
 	const [isShowEmojiBox, setIsShowEmojiBox] = useState(false)
+	const { currentUser } = useContext(AuthContext)
 
 	const handleEmojiClick = (emojiObject, event) => {
 		setMessageText((prevState) => prevState + emojiObject.emoji)
@@ -25,6 +29,23 @@ const InputMessageBox = () => {
 	useEffect(() => {
 		// console.log({ messageText, attached, photo })
 	}, [messageText, attached, photo])
+
+	const firebaseFnc = {
+		addMessage: async (messageText, messageFiles) => {
+			await addDoc(collection(db, 'messages'), {
+				createAt: serverTimestamp(),
+				createBy: doc(db, 'users', currentUser.uid),
+				messageText: messageText,
+				messageFiles: messageFiles || [],
+				chatId: chatId,
+			})
+		},
+	}
+
+	const handleSend = async () => {
+		await firebaseFnc.addMessage(messageText)
+		setMessageText('')
+	}
 
 	return (
 		<div className="input-message-box">
@@ -60,8 +81,11 @@ const InputMessageBox = () => {
 				placeholder="Type a message..."
 				value={messageText}
 				onChange={(e) => setMessageText(e.target.value)}
+				onKeyDown={(e) => {
+					e.code === 'Enter' && handleSend()
+				}}
 			/>
-			<Button>
+			<Button onClick={handleSend}>
 				<SendIcon />
 			</Button>
 		</div>

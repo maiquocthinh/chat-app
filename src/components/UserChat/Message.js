@@ -1,19 +1,43 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import './Message.scss'
 import { MoreIcon2, ClockIcon, PlayIcon, CopyIcon, SaveIcon, TrashIcon, ShareIcon } from '../../assets/images/svgicon'
 import { ModalContext } from '../../context/ModalContext'
 import FilePreview from './filePreview'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
+import { AuthContext } from '../../context/AuthContext'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../firebase/config'
 
 const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
+	const { currentUser } = useContext(AuthContext)
+	const [UserObj, setUserObj] = useState({})
+
+	const firebaseFnc = {
+		getUserById: async (id) => {
+			try {
+				const docSnap = await getDoc(doc(db, 'users', id))
+				if (docSnap.exists()) return docSnap.data()
+			} catch (error) {
+				console.log(error)
+			}
+		},
+	}
+
+	useEffect(() => {
+		if (!myMessage) {
+			;(async () => {
+				setUserObj(await firebaseFnc.getUserById(messageData.createBy.id))
+			})()
+		}
+	}, [])
 
 	return (
 		<div className={`${myMessage ? 'my ' : ''}message`}>
 			<div className="message__avatar">
-				<img src="https://i.imgur.com/AOgo2uD.jpg" alt="" />
-				<h5>Ossie Wilson</h5>
+				<img src={myMessage ? currentUser.photoURL : UserObj.photoURL} alt="" />
+				<h5>{myMessage ? currentUser.displayName : UserObj.displayName}</h5>
 			</div>
 			<div className="message__content">
 				<div className="message__content__wrapper">
@@ -111,7 +135,15 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 					) : null}
 					<div className="message__content__time">
 						<ClockIcon width="1.1rem" height="1.1rem" />
-						<span>12:32 AM</span>
+						<span>
+							{`${
+								new Date().toLocaleDateString() !== messageData.createAt?.toDate().toLocaleDateString()
+									? messageData.createAt?.toDate().toLocaleDateString()
+									: ''
+							} ${messageData.createAt
+								?.toDate()
+								.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' })}`}
+						</span>
 					</div>
 				</div>
 				<div className="message__content__action">
