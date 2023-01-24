@@ -1,6 +1,9 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/mixins';
 
+.messages {
+	padding: 12px 0;
+}
 .message {
 	display: flex;
 	align-items: flex-end;
@@ -219,6 +222,7 @@
 		.message__content {
 			margin-left: 0;
 			margin-right: 24px;
+			justify-content: flex-end;
 
 			&:before {
 				left: unset;

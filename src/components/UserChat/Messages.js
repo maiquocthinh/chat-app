@@ -11,13 +11,9 @@ const Messages = ({ chatId }) => {
 
 	useEffect(() => {
 		try {
-			const q = query(collection(db, 'messages'), where('chatId', '==', chatId), orderBy('createAt'))
+			const q = query(collection(db, 'messages'), where('chatId', '==', chatId), orderBy('createAt', 'desc'))
 			const unsub = onSnapshot(q, (querySnapshot) => {
-				const _messages = querySnapshot.docs.map((doc) => ({
-					...doc.data(),
-					id: doc.id,
-				}))
-				setMessages(_messages)
+				setMessages(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
 			})
 
 			return () => {
@@ -34,17 +30,19 @@ const Messages = ({ chatId }) => {
 
 	return (
 		<div className="messages" ref={messagesElmRef}>
-			{messages.map((message) => (
-				<Message
-					key={message.id}
-					isText
-					myMessage={currentUser.uid === message.createBy.id}
-					messageData={{
-						text: message.messageText,
-						...message,
-					}}
-				/>
-			))}
+			{messages
+				.map((message) => (
+					<Message
+						key={message.id}
+						isText
+						myMessage={currentUser.uid === message.createBy.id}
+						messageData={{
+							text: message.messageText,
+							...message,
+						}}
+					/>
+				))
+				.reverse()}
 		</div>
 	)
 }

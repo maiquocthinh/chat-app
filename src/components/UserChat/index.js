@@ -17,7 +17,7 @@ import Profile from '../Profile'
 import { ModalContext } from '../../context/ModalContext'
 import { AuthContext } from '../../context/AuthContext'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
 import { isEmptyObject } from '../../utils'
@@ -28,6 +28,8 @@ const UserChat = () => {
 	const { currentUser } = useContext(AuthContext)
 	const { id: chatId } = useParams()
 	const [UserObj, setUserObj] = useState({})
+	const navigate = useNavigate()
+
 	const firebaseFnc = {
 		getChatById: async (id) => {
 			try {
@@ -54,10 +56,12 @@ const UserChat = () => {
 	}
 
 	useEffect(() => {
-		if (!isEmptyObject(currentUser)) {
+		if (!isEmptyObject(currentUser) && chatId) {
+			// hidden chatcontent on mobile
+			document.querySelector('.chat-content')?.classList.add('mobile-d-none')
 			;(async () => {
 				const Chat = await firebaseFnc.getChatById(chatId)
-				if (Chat.type === 1) {
+				if (Chat?.type === 1) {
 					const uid = Chat?.members.filter((val) => val !== currentUser.uid)[0]
 					const userSnapData = await firebaseFnc.getUserById(uid)
 					if (UserObj?.uid !== userSnapData.uid) setUserObj(userSnapData)
@@ -89,9 +93,10 @@ const UserChat = () => {
 		})
 	}
 
-	const handleClick = () => {
+	const handleBack = () => {
 		const chatContentDoc = document.querySelector('.chat-content')
 		chatContentDoc.classList.remove('mobile-d-none')
+		navigate('/')
 	}
 
 	return (
@@ -115,7 +120,7 @@ const UserChat = () => {
 			{chatId && (
 				<>
 					<div className="user-chat__header">
-						<div className="header__icon-back desktop-d-none tablet-d-none" onClick={handleClick}>
+						<div className="header__icon-back desktop-d-none tablet-d-none" onClick={handleBack}>
 							<LeftArrowIcon width="2.2rem" height="2.2rem" />
 						</div>
 						<div className="header__user">

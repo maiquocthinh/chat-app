@@ -1,19 +1,41 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Input from '../Input'
 import UserStatusBox from './UserStatusBox'
-import UserMessageBox from './UserMessageBox'
-import { collection, query, where, getDocs } from 'firebase/firestore'
+import UserMessageBoxWrapper from './UserMessageBoxWrapper'
+import { collection, query, where, getDocs, onSnapshot, orderBy } from 'firebase/firestore'
 import { db } from '../../firebase/config'
+import { AuthContext } from '../../context/AuthContext'
 
 const ChatContent = () => {
+	const { currentUser } = useContext(AuthContext)
 	const chatContentHeaderRef = useRef()
 	const chatContentBodyRef = useRef()
 	const [searchText, setSearchText] = useState('')
 	const [searchResults, setSearchResults] = useState([])
+	const [recentChats, setRecentChats] = useState([])
 
 	useEffect(() => {
 		chatContentBodyRef.current.style.height = `calc(100% - ${chatContentHeaderRef.current.offsetHeight}px)`
 	}, [])
+
+	useEffect(() => {
+		if (!searchText && currentUser?.uid)
+			try {
+				const q = query(
+					collection(db, 'chats'),
+					where('members', 'array-contains', currentUser.uid),
+					orderBy('modifiedAt', 'desc'),
+				)
+				const unsub = onSnapshot(q, (querySnapshot) => {
+					setRecentChats(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+				})
+				return () => {
+					unsub()
+				}
+			} catch (error) {
+				console.log(error)
+			}
+	}, [currentUser, searchText])
 
 	const handleSearch = async () => {
 		if (!searchText) {
@@ -77,14 +99,24 @@ const ChatContent = () => {
 			<div className="chat-content__body" ref={chatContentBodyRef}>
 				<h5 className="chat-content__body__header">{searchText ? 'Search Results: ' : 'Recent'}</h5>
 				<div className="chat-content__body__content">
-					{searchResults.length > 0 && (
+					{!searchText ? (
 						<ul className="chat-message-list">
-							{searchResults.map((result, i) => (
+							{recentChats.map((chat, i) => (
 								<li className="chat-message-item" key={i}>
-									<UserMessageBox onClick={handleSelect} data={result} />
+									<UserMessageBoxWrapper onClick={handleSelect} dataChat={chat} />
 								</li>
 							))}
 						</ul>
+					) : (
+						searchResults.length > 0 && (
+							<ul className="chat-message-list">
+								{searchResults.map((result, i) => (
+									<li className="chat-message-item" key={i}>
+										<UserMessageBoxWrapper onClick={handleSelect} data={result} />
+									</li>
+								))}
+							</ul>
+						)
 					)}
 				</div>
 			</div>

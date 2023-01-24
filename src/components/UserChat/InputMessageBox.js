@@ -5,7 +5,7 @@ import './InputMessageBox.scss'
 import Button from '../Button'
 import { AttachedIcon, PictureIcon, SendIcon, SimleIcon } from '../../assets/images/svgicon'
 import Input from '../Input'
-import { addDoc, collection, doc, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
 import { AuthContext } from '../../context/AuthContext'
 
@@ -32,7 +32,7 @@ const InputMessageBox = ({ chatId }) => {
 
 	const firebaseFnc = {
 		addMessage: async (messageText, messageFiles) => {
-			await addDoc(collection(db, 'messages'), {
+			return await addDoc(collection(db, 'messages'), {
 				createAt: serverTimestamp(),
 				createBy: doc(db, 'users', currentUser.uid),
 				messageText: messageText,
@@ -40,10 +40,17 @@ const InputMessageBox = ({ chatId }) => {
 				chatId: chatId,
 			})
 		},
+		updateChat: async (messageDocRef) => {
+			await updateDoc(doc(db, 'chats', chatId), {
+				lastMessage: messageDocRef,
+				modifiedAt: serverTimestamp(),
+			})
+		},
 	}
 
 	const handleSend = async () => {
-		await firebaseFnc.addMessage(messageText)
+		const messageDocRef = await firebaseFnc.addMessage(messageText)
+		await firebaseFnc.updateChat(messageDocRef)
 		setMessageText('')
 	}
 

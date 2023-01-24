@@ -8,6 +8,7 @@ import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdo
 import { AuthContext } from '../../context/AuthContext'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
+import { timeChatConvert } from '../../utils'
 
 const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
@@ -135,15 +136,7 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 					) : null}
 					<div className="message__content__time">
 						<ClockIcon width="1.1rem" height="1.1rem" />
-						<span>
-							{`${
-								new Date().toLocaleDateString() !== messageData.createAt?.toDate().toLocaleDateString()
-									? messageData.createAt?.toDate().toLocaleDateString()
-									: ''
-							} ${messageData.createAt
-								?.toDate()
-								.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' })}`}
-						</span>
+						<span>{timeChatConvert(messageData.createAt?.toDate())}</span>
 					</div>
 				</div>
 				<div className="message__content__action">
