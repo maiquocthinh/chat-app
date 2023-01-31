@@ -9,6 +9,10 @@ import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/fi
 import { db } from '../../firebase/config'
 import { AuthContext } from '../../context/AuthContext'
 
+import { UploadClient } from '@uploadcare/upload-client'
+
+const client = new UploadClient({ publicKey: 'd46b431bd96c90c15661' })
+
 const InputMessageBox = ({ chatId }) => {
 	const [messageText, setMessageText] = useState('')
 	const [attached, setAttached] = useState(null)
@@ -19,16 +23,26 @@ const InputMessageBox = ({ chatId }) => {
 	const handleEmojiClick = (emojiObject, event) => {
 		setMessageText((prevState) => prevState + emojiObject.emoji)
 	}
-	const handleAttachedClick = () => {
-		setAttached(document.querySelector('#attached')?.files)
+	const handleAttachedSelect = (e) => {
+		setAttached(e.target.files)
 	}
-	const handlePhotoClick = () => {
-		setPhoto(document.querySelector('#photo')?.files)
+	const handlePhotoSelect = async (e) => {
+		// setPhoto(e.target.files)
+		const files = Array.prototype.map.bind(e.target.files)((file) => file)
+		const res = await client.uploadFileGroup(files)
+		console.log(res)
+		const messageFiles = res.files.map((file) => ({
+			directLink: file.cdnUrl + file.name,
+			name: file.name,
+			size: file.size,
+			mimeType: file.mimeType,
+		}))
+		await firebaseFnc.addMessage('', messageFiles)
 	}
 
-	useEffect(() => {
-		// console.log({ messageText, attached, photo })
-	}, [messageText, attached, photo])
+	// useEffect(() => {
+	// 	console.log({ messageText, attached, photo })
+	// }, [messageText, attached, photo])
 
 	const firebaseFnc = {
 		addMessage: async (messageText, messageFiles) => {
@@ -67,16 +81,31 @@ const InputMessageBox = ({ chatId }) => {
 					lazyLoadEmojis={true}
 				/>
 			) : null}
-			<Button onClick={handleAttachedClick}>
+			<Button>
 				<label htmlFor="attached">
 					<AttachedIcon />
-					<input id="attached" type="file" name="attached" multiple className="d-none" />
+					<input
+						id="attached"
+						type="file"
+						name="attached"
+						multiple
+						className="d-none"
+						onChange={handleAttachedSelect}
+					/>
 				</label>
 			</Button>
-			<Button onClick={handlePhotoClick}>
+			<Button>
 				<label htmlFor="photo">
 					<PictureIcon />
-					<input id="photo" type="file" name="photo" accept="image/*" multiple className="d-none" />
+					<input
+						id="photo"
+						type="file"
+						name="photo"
+						accept="image/*"
+						multiple
+						className="d-none"
+						onChange={handlePhotoSelect}
+					/>
 				</label>
 			</Button>
 			<Button onClick={() => setIsShowEmojiBox(!isShowEmojiBox)}>

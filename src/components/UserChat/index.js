@@ -101,9 +101,11 @@ const UserChat = () => {
 
 	return (
 		<div className="user-chat">
-			<div className="user-chat__loader">
-				<LoadingIcon height="6rem" width="6rem" className="loading-icon-svg" />
-			</div>
+			{false && (
+				<div className="user-chat__loader">
+					<LoadingIcon height="6rem" width="6rem" className="loading-icon-svg" />
+				</div>
+			)}
 			{!!chatId || (
 				<div className="user-chat__welcome">
 					<div className="user-chat__welcome__wrapper">

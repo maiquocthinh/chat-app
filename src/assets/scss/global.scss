@@ -473,7 +473,7 @@ a {
 				&__loader {
 					height: 100%;
 					@include flexCenter;
-					display: none;
+					// display: none;
 
 					.loading-icon-svg {
 						@include rotate-animation(2.3s, backwards);

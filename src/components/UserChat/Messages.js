@@ -31,17 +31,32 @@ const Messages = ({ chatId }) => {
 	return (
 		<div className="messages" ref={messagesElmRef}>
 			{messages
-				.map((message) => (
-					<Message
-						key={message.id}
-						isText
-						myMessage={currentUser.uid === message.createBy.id}
-						messageData={{
-							text: message.messageText,
-							...message,
-						}}
-					/>
-				))
+				.map((message) => {
+					return message.messageFiles.length > 0 ? (
+						<Message
+							key={message.id}
+							isPhoto
+							myMessage={currentUser.uid === message.createBy.id}
+							messageData={{
+								images: message.messageFiles.map((file) => ({
+									name: file.name,
+									link: file.directLink,
+								})),
+								...message,
+							}}
+						/>
+					) : (
+						<Message
+							key={message.id}
+							isText
+							myMessage={currentUser.uid === message.createBy.id}
+							messageData={{
+								text: message.messageText,
+								...message,
+							}}
+						/>
+					)
+				})
 				.reverse()}
 		</div>
 	)
