@@ -4,6 +4,16 @@ import './Message.scss'
 import { DownloadIcon, FileIcon, MoreIcon2, ShareIcon } from '../../assets/images/svgicon'
 import Dropdown, { DropdownTonggle, DropdownMenu, DropdownItem } from '../Dropdown'
 const FilePreview = ({ file }) => {
+	const handleDownload = ({ link, name }) => {
+		const linkEl = document.createElement('a')
+		linkEl.download = name
+		linkEl.href = link
+		document.body.appendChild(linkEl)
+		linkEl.click()
+		document.body.removeChild(linkEl)
+		linkEl = null
+	}
+
 	return (
 		<div className="file-preview">
 			<div className="file-preview__icon">
@@ -20,7 +30,7 @@ const FilePreview = ({ file }) => {
 					</div>
 				</DropdownTonggle>
 				<DropdownMenu>
-					<DropdownItem>
+					<DropdownItem onClick={() => handleDownload(file)}>
 						Download <DownloadIcon height="1.4rem" width="1.4rem" />
 					</DropdownItem>
 					<DropdownItem>

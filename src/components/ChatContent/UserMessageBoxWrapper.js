@@ -28,10 +28,21 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 							? (await getDoc(dataChat.lastMessage)).data()
 							: null
 
+						let latestMessage = ''
+						if (latestMessageData?.messageFiles?.length > 0) {
+							if (latestMessageData.messageFiles[0].mimeType.includes('image'))
+								latestMessage = 'Sended Image...'
+							else if (latestMessageData.messageFiles[0].mimeType.includes('video'))
+								latestMessage = 'Sended Video...'
+							else latestMessage = 'Sended File...'
+						} else {
+							latestMessage = latestMessageData?.messageText
+						}
+
 						setRoomProps({
 							photoURL: friendData.photoURL,
 							displayName: friendData.displayName,
-							latestMessage: latestMessageData?.messageText,
+							latestMessage: latestMessage,
 							lastMessageTime: latestMessageData?.createAt,
 							isMakeNewChat: false,
 							handleOnClick: () => {

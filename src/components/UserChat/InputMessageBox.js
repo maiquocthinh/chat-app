@@ -9,10 +9,6 @@ import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/fi
 import { db } from '../../firebase/config'
 import { AuthContext } from '../../context/AuthContext'
 
-import { UploadClient } from '@uploadcare/upload-client'
-
-const client = new UploadClient({ publicKey: 'd46b431bd96c90c15661' })
-
 const InputMessageBox = ({ chatId }) => {
 	const [messageText, setMessageText] = useState('')
 	const [attached, setAttached] = useState(null)
@@ -23,21 +19,80 @@ const InputMessageBox = ({ chatId }) => {
 	const handleEmojiClick = (emojiObject, event) => {
 		setMessageText((prevState) => prevState + emojiObject.emoji)
 	}
-	const handleAttachedSelect = (e) => {
-		setAttached(e.target.files)
+	const handleAttachedSelect = async (e) => {
+		// setAttached(e.target.files)
+		const formData = new FormData()
+		Array.prototype.forEach.bind(e.target.files)((file) => {
+			formData.append('files', file)
+		})
+
+		const response = await fetch('https://ruby-proud-xerus.cyclic.app/upload', {
+			method: 'post',
+			body: formData,
+			mode: 'no-cors',
+		}).then((response) => response.json())
+
+		if (Array.isArray(response.data)) {
+			const messageFiles = response.data.map((file) => ({
+				directLink: file.url,
+				name: file.name,
+				size: file.size,
+				mimeType: file.mimeType,
+			}))
+
+			const messageDocRef = await firebaseFnc.addMessage('', messageFiles)
+			await firebaseFnc.updateChat(messageDocRef)
+		} else {
+			const messageFiles = [
+				{
+					directLink: response.data.url,
+					name: response.data.name,
+					size: response.data.size,
+					mimeType: response.data.mimeType,
+				},
+			]
+
+			const messageDocRef = await firebaseFnc.addMessage('', messageFiles)
+			await firebaseFnc.updateChat(messageDocRef)
+		}
 	}
+
 	const handlePhotoSelect = async (e) => {
 		// setPhoto(e.target.files)
-		const files = Array.prototype.map.bind(e.target.files)((file) => file)
-		const res = await client.uploadFileGroup(files)
-		console.log(res)
-		const messageFiles = res.files.map((file) => ({
-			directLink: file.cdnUrl + file.name,
-			name: file.name,
-			size: file.size,
-			mimeType: file.mimeType,
-		}))
-		await firebaseFnc.addMessage('', messageFiles)
+		const formData = new FormData()
+		Array.prototype.forEach.bind(e.target.files)((file) => {
+			formData.append('files', file)
+		})
+
+		const response = await fetch('https://ruby-proud-xerus.cyclic.app/upload', {
+			method: 'post',
+			body: formData,
+			mode: 'no-cors',
+		}).then((response) => response.json())
+
+		if (Array.isArray(response.data)) {
+			const messageFiles = response.data.map((file) => ({
+				directLink: 'https://i1.wp.com/' + file.url.replace('http://', ''),
+				name: file.name,
+				size: file.size,
+				mimeType: file.mimeType,
+			}))
+
+			const messageDocRef = await firebaseFnc.addMessage('', messageFiles)
+			await firebaseFnc.updateChat(messageDocRef)
+		} else {
+			const messageFiles = [
+				{
+					directLink: 'https://i1.wp.com/' + response.data.url.replace('http://', ''),
+					name: response.data.name,
+					size: response.data.size,
+					mimeType: response.data.mimeType,
+				},
+			]
+
+			const messageDocRef = await firebaseFnc.addMessage('', messageFiles)
+			await firebaseFnc.updateChat(messageDocRef)
+		}
 	}
 
 	// useEffect(() => {

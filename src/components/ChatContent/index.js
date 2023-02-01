@@ -67,6 +67,8 @@ const ChatContent = () => {
 		chatContentDoc.classList.add('mobile-d-none')
 	}
 
+	console.log(recentChats)
+
 	return (
 		<div className="chat-content">
 			<div className="chat-content__header" ref={chatContentHeaderRef}>

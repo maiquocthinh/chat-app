@@ -32,30 +32,66 @@ const Messages = ({ chatId }) => {
 		<div className="messages" ref={messagesElmRef}>
 			{messages
 				.map((message) => {
-					return message.messageFiles.length > 0 ? (
-						<Message
-							key={message.id}
-							isPhoto
-							myMessage={currentUser.uid === message.createBy.id}
-							messageData={{
-								images: message.messageFiles.map((file) => ({
-									name: file.name,
-									link: file.directLink,
-								})),
-								...message,
-							}}
-						/>
-					) : (
-						<Message
-							key={message.id}
-							isText
-							myMessage={currentUser.uid === message.createBy.id}
-							messageData={{
-								text: message.messageText,
-								...message,
-							}}
-						/>
-					)
+					if (message.messageFiles.length > 0) {
+						if (message.messageFiles[0].mimeType.includes('image'))
+							return (
+								<Message
+									key={message.id}
+									isPhoto
+									myMessage={currentUser.uid === message.createBy.id}
+									messageData={{
+										images: message.messageFiles.map((file) => ({
+											name: file.name,
+											link: file.directLink,
+										})),
+										...message,
+									}}
+								/>
+							)
+						else if (message.messageFiles[0].mimeType.includes('video'))
+							return (
+								<Message
+									key={message.id}
+									isVideo
+									myMessage={currentUser.uid === message.createBy.id}
+									messageData={{
+										videos: message.messageFiles.map((file) => ({
+											name: file.name,
+											link: file.directLink,
+										})),
+										...message,
+									}}
+								/>
+							)
+						else
+							return (
+								<Message
+									key={message.id}
+									isFile
+									myMessage={currentUser.uid === message.createBy.id}
+									messageData={{
+										files: message.messageFiles.map((file) => ({
+											name: file.name,
+											link: file.directLink,
+											size: file.size,
+										})),
+										...message,
+									}}
+								/>
+							)
+					} else {
+						return (
+							<Message
+								key={message.id}
+								isText
+								myMessage={currentUser.uid === message.createBy.id}
+								messageData={{
+									text: message.messageText,
+									...message,
+								}}
+							/>
+						)
+					}
 				})
 				.reverse()}
 		</div>
