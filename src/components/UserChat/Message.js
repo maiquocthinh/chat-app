@@ -115,18 +115,6 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 								{messageData.files.map((file, index) => {
 									return (
 										<div key={index} className="list-file__item">
-											{/*<div className="file-preview">
-												<div className="file-preview__icon">
-													<FileIcon className="file-preview__icon__icon" />
-												</div>
-												<div className="file-preview__info">
-													<h5 className="file-preview__info__name">{file.name}</h5>
-													<p className="file-preview__info__size">{file.size + ` Bytes`}</p>
-												</div>
-												<div className="file-preview__action">
-													<MoreIcon2 width="1.8rem" height="1.8rem" />
-												</div>
-											</div>*/}
 											<FilePreview file={file} />
 										</div>
 									)

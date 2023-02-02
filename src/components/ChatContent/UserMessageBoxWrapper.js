@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/AuthContext'
 import { ModalContext } from '../../context/ModalContext'
 import { db } from '../../firebase/config'
 
-const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
+const UserMessageBoxWrapper = ({ dataUser, dataChat, ...props }) => {
 	const { currentUser } = useContext(AuthContext)
 	const { setOpenModal, setModalOptions } = useContext(ModalContext)
 	const navigate = useNavigate()
@@ -18,23 +18,21 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 	useEffect(() => {
 		if (currentUser?.uid) {
 			if (dataChat) {
+				// private chat
 				if (dataChat.type === 1) {
 					;(async () => {
 						// get data of firend chat
 						const friendId = dataChat.members.filter((id) => id !== currentUser.uid)[0]
 						const friendData = (await getDoc(doc(db, 'users', friendId))).data()
-						// get data of lasted mess
-						const latestMessageData = dataChat?.lastMessage
-							? (await getDoc(dataChat.lastMessage)).data()
-							: null
+						// get data of lasted message
+						const latestMessageData = dataChat?.lastMessage && (await getDoc(dataChat.lastMessage)).data()
 
 						let latestMessage = ''
 						if (latestMessageData?.messageFiles?.length > 0) {
-							if (latestMessageData.messageFiles[0].mimeType.includes('image'))
-								latestMessage = 'Sended Image...'
+							if (latestMessageData.messageFiles[0].mimeType.includes('image')) latestMessage = '🖼️ Image'
 							else if (latestMessageData.messageFiles[0].mimeType.includes('video'))
-								latestMessage = 'Sended Video...'
-							else latestMessage = 'Sended File...'
+								latestMessage = '🎬 Video'
+							else latestMessage = '📎 File'
 						} else {
 							latestMessage = latestMessageData?.messageText
 						}
@@ -70,8 +68,8 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 				let isChatted = false
 				let ChatId = ''
 
-				if (data?.chats?.private?.length > 0) {
-					for (const privateChat of data.chats.private) {
+				if (dataUser?.chats?.private?.length > 0) {
+					for (const privateChat of dataUser.chats.private) {
 						isChatted = privateChat?.user === currentUser.uid
 						if (isChatted) {
 							ChatId = privateChat.chat.id
@@ -84,7 +82,6 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 					if (isChatted) {
 						navigate(`/chat/${ChatId}`)
 					} else {
-						console.log('make new chat')
 						const newChatID = await makeNewChat()
 						navigate(`/chat/${newChatID}`)
 					}
@@ -92,10 +89,9 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 
 				const makeNewChat = async () => {
 					// create new doc chat
-
 					const chatDocRef = await addDoc(collection(db, 'chats'), {
 						type: 1,
-						members: [currentUser.uid, data?.uid],
+						members: [currentUser.uid, dataUser.uid],
 						createAt: serverTimestamp(),
 						modifiedAt: serverTimestamp(),
 					})
@@ -104,12 +100,12 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 					await updateDoc(doc(db, 'users', currentUser.uid), {
 						'chats.private': arrayUnion({
 							chat: chatDocRef,
-							user: data?.uid,
+							user: dataUser?.uid,
 						}),
 					})
 
 					// update chats private for this user
-					await updateDoc(doc(db, 'users', data.uid), {
+					await updateDoc(doc(db, 'users', dataUser.uid), {
 						'chats.private': arrayUnion({
 							chat: chatDocRef,
 							user: currentUser?.uid,
@@ -119,7 +115,7 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 					ChatId = chatDocRef.id
 					isChatted = true
 
-					return chatDocRef.id
+					return ChatId
 				}
 
 				const showProfile = (e) => {
@@ -130,8 +126,8 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 						children: (
 							<Profile
 								data={{
-									displayName: data.displayName,
-									photoURL: data.photoURL,
+									displayName: dataUser.displayName,
+									photoURL: dataUser.photoURL,
 								}}
 							/>
 						),
@@ -139,15 +135,15 @@ const UserMessageBoxWrapper = ({ data, dataChat, ...props }) => {
 				}
 
 				setUserProps({
-					photoURL: data.photoURL,
-					displayName: data.displayName,
+					photoURL: dataUser.photoURL,
+					displayName: dataUser.displayName,
 					isMakeNewChat: !isChatted,
 					handleOnClick,
 					showProfile,
 				})
 			}
 		}
-	}, [currentUser, data, dataChat])
+	}, [currentUser, dataUser, dataChat])
 
 	return <UserMessageBox dataProps={dataChat ? roomProps : userProps} {...props} />
 }

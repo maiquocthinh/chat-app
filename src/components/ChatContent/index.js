@@ -1,70 +1,22 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Input from '../Input'
 import UserStatusBox from './UserStatusBox'
-import UserMessageBoxWrapper from './UserMessageBoxWrapper'
-import { collection, query, where, getDocs, onSnapshot, orderBy } from 'firebase/firestore'
-import { db } from '../../firebase/config'
-import { AuthContext } from '../../context/AuthContext'
+import SearchUser from './SearchUser'
+import RecentChats from './RecentChats'
+import useForceUpdate from '../../hooks/useForceUpdate'
 
 const ChatContent = () => {
-	const { currentUser } = useContext(AuthContext)
 	const chatContentHeaderRef = useRef()
 	const chatContentBodyRef = useRef()
-	const [searchText, setSearchText] = useState('')
-	const [searchResults, setSearchResults] = useState([])
-	const [recentChats, setRecentChats] = useState([])
+	const searchText = useRef('')
+	const forceUpdate = useForceUpdate()
 
 	useEffect(() => {
 		chatContentBodyRef.current.style.height = `calc(100% - ${chatContentHeaderRef.current.offsetHeight}px)`
 	}, [])
 
-	useEffect(() => {
-		if (!searchText && currentUser?.uid)
-			try {
-				const q = query(
-					collection(db, 'chats'),
-					where('members', 'array-contains', currentUser.uid),
-					orderBy('modifiedAt', 'desc'),
-				)
-				const unsub = onSnapshot(q, (querySnapshot) => {
-					setRecentChats(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-				})
-				return () => {
-					unsub()
-				}
-			} catch (error) {
-				console.log(error)
-			}
-	}, [currentUser, searchText])
-
-	const handleSearch = async () => {
-		if (!searchText) {
-			setSearchResults([])
-			return
-		}
-
-		const q = query(
-			collection(db, 'users'),
-			where('displayName', '>=', searchText),
-			where('displayName', '<=', searchText + '\uf8ff'),
-		)
-		try {
-			const querySnapshot = await getDocs(q)
-			let searchRes = []
-			querySnapshot.forEach((doc) => {
-				searchRes = [...searchRes, doc.data()]
-			})
-			setSearchResults(searchRes)
-		} catch (error) {}
-	}
-
 	const handleKey = (e) => {
-		e.code === 'Enter' && handleSearch()
-	}
-
-	const handleSelect = () => {
-		const chatContentDoc = document.querySelector('.chat-content')
-		chatContentDoc.classList.add('mobile-d-none')
+		e.code === 'Enter' && forceUpdate()
 	}
 
 	return (
@@ -75,7 +27,9 @@ const ChatContent = () => {
 						type="text"
 						placeholder="Search"
 						className="search-box__input"
-						onChange={(e) => setSearchText(e.target.value)}
+						onChange={(e) => {
+							searchText.current = e.target.value
+						}}
 						onKeyDown={handleKey}
 					/>
 				</div>
@@ -99,25 +53,7 @@ const ChatContent = () => {
 			<div className="chat-content__body" ref={chatContentBodyRef}>
 				<h5 className="chat-content__body__header">{searchText ? 'Search Results: ' : 'Recent'}</h5>
 				<div className="chat-content__body__content">
-					{!searchText ? (
-						<ul className="chat-message-list">
-							{recentChats.map((chat, i) => (
-								<li className="chat-message-item" key={i}>
-									<UserMessageBoxWrapper onClick={handleSelect} dataChat={chat} />
-								</li>
-							))}
-						</ul>
-					) : (
-						searchResults.length > 0 && (
-							<ul className="chat-message-list">
-								{searchResults.map((result, i) => (
-									<li className="chat-message-item" key={i}>
-										<UserMessageBoxWrapper onClick={handleSelect} data={result} />
-									</li>
-								))}
-							</ul>
-						)
-					)}
+					{searchText.current ? <SearchUser searchText={searchText.current} /> : <RecentChats />}
 				</div>
 			</div>
 		</div>

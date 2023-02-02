@@ -18,10 +18,9 @@ import { ModalContext } from '../../context/ModalContext'
 import { AuthContext } from '../../context/AuthContext'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 import { useNavigate, useParams } from 'react-router-dom'
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../firebase/config'
 import { isEmptyObject } from '../../utils'
 import Messages from './Messages'
+import { getChatById, getUserById } from '../../firebase/service'
 
 const UserChat = () => {
 	const { setOpenModal, setModalOptions } = useContext(ModalContext)
@@ -30,40 +29,15 @@ const UserChat = () => {
 	const [UserObj, setUserObj] = useState({})
 	const navigate = useNavigate()
 
-	const firebaseFnc = {
-		getChatById: async (id) => {
-			try {
-				const docSnap = await getDoc(doc(db, 'chats', id))
-				if (docSnap.exists()) return docSnap.data()
-			} catch (error) {
-				console.log(error)
-			}
-		},
-		getUserById: async (id) => {
-			try {
-				const docSnap = await getDoc(doc(db, 'users', id))
-				if (docSnap.exists()) return docSnap.data()
-			} catch (error) {
-				console.log(error)
-			}
-		},
-		getMessageById: async (id) => {
-			try {
-				const docSnap = await getDoc(doc(db, 'messages', id))
-				if (docSnap.exists()) return docSnap.data()
-			} catch (error) {}
-		},
-	}
-
 	useEffect(() => {
 		if (!isEmptyObject(currentUser) && chatId) {
 			// hidden chatcontent on mobile
 			document.querySelector('.chat-content')?.classList.add('mobile-d-none')
 			;(async () => {
-				const Chat = await firebaseFnc.getChatById(chatId)
+				const Chat = await getChatById(chatId)
 				if (Chat?.type === 1) {
 					const uid = Chat?.members.filter((val) => val !== currentUser.uid)[0]
-					const userSnapData = await firebaseFnc.getUserById(uid)
+					const userSnapData = await getUserById(uid)
 					if (UserObj?.uid !== userSnapData.uid) setUserObj(userSnapData)
 				}
 			})()
@@ -127,7 +101,7 @@ const UserChat = () => {
 						</div>
 						<div className="header__user">
 							<div className="header__user__avatar">
-								<img src={UserObj.photoURL} alt="abc" />
+								<img src={UserObj.photoURL} alt="avatar" />
 								<span className="user-status"></span>
 							</div>
 							<div className="header__user__info">

@@ -11,7 +11,6 @@ const FilePreview = ({ file }) => {
 		document.body.appendChild(linkEl)
 		linkEl.click()
 		document.body.removeChild(linkEl)
-		linkEl = null
 	}
 
 	return (

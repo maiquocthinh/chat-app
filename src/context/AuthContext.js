@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 			if (user) {
 				const { uid, email, displayName, photoURL } = user
 				setcurrentUser({ uid, email, displayName, photoURL })
-				if (location.pathname == '/login' || location.pathname == '/register') navigate('/')
+				if (location.pathname === '/login' || location.pathname === '/register') navigate('/')
 			} else {
 				if (location.pathname !== '/login' && location.pathname !== '/register') navigate('/login')
 			}

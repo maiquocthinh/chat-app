@@ -1,4 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-const useForceUpdate = () => useState()[1]
+const useForceUpdate = () => {
+	const setState = useState()[1]
+	return () => {
+		setState(Date.now() * Math.random())
+	}
+}
 export default useForceUpdate
