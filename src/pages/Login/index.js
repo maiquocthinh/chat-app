@@ -9,6 +9,7 @@ import {
 	GoogleAuthProvider,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	TwitterAuthProvider,
 } from 'firebase/auth'
 import { auth, db } from '../../firebase/config'
 import { Link, useNavigate } from 'react-router-dom'
@@ -19,6 +20,7 @@ const Login = () => {
 	const navigate = useNavigate()
 	const ggProvider = new GoogleAuthProvider()
 	const fbProvider = new FacebookAuthProvider()
+	const twProvider = new TwitterAuthProvider()
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -66,8 +68,22 @@ const Login = () => {
 		}
 	}
 
-	const handleTwitterLogin = async () => {
-		alert('Developing....')
+	const handleTwLogin = async () => {
+		const data = await signInWithPopup(auth, twProvider)
+		const additionalUserInfo = getAdditionalUserInfo(data)
+		const { user } = data
+
+		if (additionalUserInfo?.isNewUser) {
+			await setDoc(doc(db, 'users', user.uid), {
+				uid: user.uid,
+				shortUid: nanoid(7),
+				email: user.email,
+				displayName: user.displayName,
+				photoURL: user.photoURL,
+				providerId: additionalUserInfo.providerId,
+				createAt: serverTimestamp(),
+			})
+		}
 	}
 
 	return (
@@ -92,7 +108,7 @@ const Login = () => {
 							<Button variant="outlined" color="warning" onClick={handleFbLogin}>
 								<img src={facebookIcon} alt="Facebook" style={{ height: '24px' }} />
 							</Button>
-							<Button color="violet" onClick={handleTwitterLogin}>
+							<Button color="violet" onClick={handleTwLogin}>
 								<img src={twitterIcon} alt="Twitter" style={{ height: '24px' }} />
 							</Button>
 						</div>
