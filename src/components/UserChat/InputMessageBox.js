@@ -29,7 +29,6 @@ const InputMessageBox = ({ chatId }) => {
 		const response = await fetch('https://ruby-proud-xerus.cyclic.app/upload', {
 			method: 'post',
 			body: formData,
-			mode: 'no-cors',
 		}).then((response) => response.json())
 
 		if (Array.isArray(response.data)) {
@@ -67,7 +66,6 @@ const InputMessageBox = ({ chatId }) => {
 		const response = await fetch('https://ruby-proud-xerus.cyclic.app/upload', {
 			method: 'post',
 			body: formData,
-			mode: 'no-cors',
 		}).then((response) => response.json())
 
 		if (Array.isArray(response.data)) {
