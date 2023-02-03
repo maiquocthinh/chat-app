@@ -3,7 +3,7 @@ import React from 'react'
 import './UserMessageBox.scss'
 import { ChatIcon, MoreIcon, ProfileIcon } from '../../assets/images/svgicon'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
-import { timeChatConvert } from '../../utils'
+import { calculateElapsedTime } from '../../utils'
 
 const UserMessageBox = ({ dataProps, onClick, ...props }) => {
 	const { photoURL, displayName, latestMessage, lastMessageTime, handleOnClick, showProfile, isMakeNewChat } =
@@ -27,7 +27,7 @@ const UserMessageBox = ({ dataProps, onClick, ...props }) => {
 					{latestMessage && <p className="user-latest-message">{latestMessage}</p>}
 				</div>
 				<div className="date-and-actions">
-					{lastMessageTime && <span className="date">{timeChatConvert(lastMessageTime.toDate())}</span>}
+					{lastMessageTime && <span className="date">{calculateElapsedTime(lastMessageTime.toDate())}</span>}
 					<div className="action-toggle">
 						<Dropdown place="left">
 							<DropdownTonggle>

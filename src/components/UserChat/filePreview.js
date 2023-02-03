@@ -3,14 +3,11 @@ import React from 'react'
 import './Message.scss'
 import { DownloadIcon, FileIcon, MoreIcon2, ShareIcon } from '../../assets/images/svgicon'
 import Dropdown, { DropdownTonggle, DropdownMenu, DropdownItem } from '../Dropdown'
+import { forceDownloadFile, formatFileSize } from '../../utils'
+
 const FilePreview = ({ file }) => {
 	const handleDownload = ({ link, name }) => {
-		const linkEl = document.createElement('a')
-		linkEl.download = name
-		linkEl.href = link
-		document.body.appendChild(linkEl)
-		linkEl.click()
-		document.body.removeChild(linkEl)
+		forceDownloadFile(link, name)
 	}
 
 	return (
@@ -20,7 +17,7 @@ const FilePreview = ({ file }) => {
 			</div>
 			<div className="file-preview__info">
 				<h5 className="file-preview__info__name">{file.name}</h5>
-				<p className="file-preview__info__size">{file.size + ` Bytes`}</p>
+				<p className="file-preview__info__size">{formatFileSize(file.size)}</p>
 			</div>
 			<Dropdown place="left">
 				<DropdownTonggle>

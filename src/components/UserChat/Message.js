@@ -8,7 +8,7 @@ import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdo
 import { AuthContext } from '../../context/AuthContext'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config'
-import { timeChatConvert } from '../../utils'
+import { calculateElapsedTime, copyToClipboard } from '../../utils'
 
 const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
@@ -33,6 +33,10 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 			})()
 		}
 	}, [])
+
+	const handleCopy = ({ text }) => {
+		if (text) copyToClipboard(text)
+	}
 
 	return (
 		<div className={`${myMessage ? 'my ' : ''}message`}>
@@ -124,7 +128,7 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 					) : null}
 					<div className="message__content__time">
 						<ClockIcon width="1.1rem" height="1.1rem" />
-						<span>{timeChatConvert(messageData.createAt?.toDate())}</span>
+						<span>{calculateElapsedTime(messageData.createAt?.toDate())}</span>
 					</div>
 				</div>
 				<div className="message__content__action">
@@ -133,7 +137,14 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 							<MoreIcon2 height="2rem" width="2rem" style={{ transform: 'rotate(90deg)' }} />
 						</DropdownTonggle>
 						<DropdownMenu>
-							<DropdownItem>
+							<DropdownItem
+								onClick={(e) => {
+									e.preventDefault()
+									handleCopy({
+										text: messageData?.text,
+									})
+								}}
+							>
 								Copy <CopyIcon height="1.4rem" width="1.4rem" />
 							</DropdownItem>
 							<DropdownItem>
