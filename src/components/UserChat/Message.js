@@ -6,30 +6,18 @@ import { ModalContext } from '../../context/ModalContext'
 import FilePreview from './filePreview'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 import { AuthContext } from '../../context/AuthContext'
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../firebase/config'
 import { calculateElapsedTime, copyToClipboard } from '../../utils'
+import { getUserById } from '../../firebase/service'
 
 const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
 	const { currentUser } = useContext(AuthContext)
 	const [UserObj, setUserObj] = useState({})
 
-	const firebaseFnc = {
-		getUserById: async (id) => {
-			try {
-				const docSnap = await getDoc(doc(db, 'users', id))
-				if (docSnap.exists()) return docSnap.data()
-			} catch (error) {
-				console.log(error)
-			}
-		},
-	}
-
 	useEffect(() => {
 		if (!myMessage) {
 			;(async () => {
-				setUserObj(await firebaseFnc.getUserById(messageData.createBy.id))
+				setUserObj(await getUserById(messageData.createBy.id))
 			})()
 		}
 	}, [])
@@ -100,7 +88,7 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 											<div className="video-preview">
 												<img
 													className="video-preview__thumb"
-													src="https://i.ytimg.com/vi/PLSHmNSpfLU/maxresdefault.jpg"
+													src="https://i.imgur.com/ZgDHEme.jpg"
 													alt=""
 												/>
 												<div className="video-preview__icon-play">
