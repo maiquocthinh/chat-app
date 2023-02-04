@@ -7,9 +7,9 @@ import FilePreview from './filePreview'
 import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdown'
 import { AuthContext } from '../../context/AuthContext'
 import { calculateElapsedTime, copyToClipboard } from '../../utils'
-import { getUserById } from '../../firebase/service'
+import { deleteMessageById, getUserById } from '../../firebase/service'
 
-const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) => {
+const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData, setMessages }) => {
 	const { setOpenModalPreview, setModalPreviewOptions } = useContext(ModalContext)
 	const { currentUser } = useContext(AuthContext)
 	const [UserObj, setUserObj] = useState({})
@@ -24,6 +24,11 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 
 	const handleCopy = ({ text }) => {
 		if (text) copyToClipboard(text)
+	}
+
+	const handleDelete = async (messageId) => {
+		setMessages((messages) => messages.filter((message) => message.id !== messageId))
+		await deleteMessageById(messageId)
 	}
 
 	return (
@@ -141,9 +146,15 @@ const Message = ({ isText, isPhoto, isVideo, isFile, myMessage, messageData }) =
 							<DropdownItem>
 								Forward <ShareIcon height="1.3rem" width="1.3rem" />{' '}
 							</DropdownItem>
-							<DropdownItem>
-								Delete <TrashIcon height="1.4rem" width="1.4rem" />
-							</DropdownItem>
+							{myMessage && (
+								<DropdownItem
+									onClick={async () => {
+										await handleDelete(messageData.id)
+									}}
+								>
+									Delete <TrashIcon height="1.4rem" width="1.4rem" />
+								</DropdownItem>
+							)}
 						</DropdownMenu>
 					</Dropdown>
 				</div>

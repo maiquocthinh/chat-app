@@ -79,8 +79,8 @@ const Tooltip = ({ children, html, component, content, trigger = 'hover', place 
 
 	const handleHidden = () => {
 		setTimeout(() => {
-			if (refTooltip.current.matches(':hover')) return
-			refTooltip.current.classList.remove('show')
+			if (refTooltip.current?.matches(':hover')) return
+			refTooltip.current?.classList.remove('show')
 		}, 300)
 	}
 

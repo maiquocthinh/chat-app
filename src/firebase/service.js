@@ -1,17 +1,4 @@
-import {
-	addDoc,
-	collection,
-	doc,
-	getDoc,
-	getDocs,
-	limit,
-	orderBy,
-	query,
-	serverTimestamp,
-	startAfter,
-	updateDoc,
-	where,
-} from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from './config'
 
 export const getChatById = async (id) => {
@@ -35,7 +22,16 @@ export const getMessageById = async (id) => {
 	try {
 		const docSnap = await getDoc(doc(db, 'messages', id))
 		if (docSnap.exists()) return docSnap.data()
-	} catch (error) {}
+	} catch (error) {
+		console.log(error)
+	}
+}
+export const deleteMessageById = async (id) => {
+	try {
+		await deleteDoc(doc(db, 'messages', id))
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 export const addMessage = async ({ messageText, messageFiles, userId, chatId }) => {
@@ -52,23 +48,4 @@ export const updateLastMessage = async ({ chatId, messageDocRef }) => {
 		lastMessage: messageDocRef,
 		modifiedAt: serverTimestamp(),
 	})
-}
-
-export const loadMoreMessages = async ({ _limit, lastKey, chatId, setLastKey }) => {
-	let q
-	if (lastKey)
-		q = query(
-			collection(db, 'messages'),
-			where('chatId', '==', chatId),
-			orderBy('createAt', 'desc'),
-			startAfter(lastKey),
-			limit(_limit),
-		)
-	else
-		q = query(collection(db, 'messages'), where('chatId', '==', chatId), orderBy('createAt', 'desc'), limit(_limit))
-	const querySnapshot = await getDocs(q)
-	const _messages = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-	if (_messages.length > 0) setLastKey(_messages[_messages.length - 1].createAt)
-	if (lastKey) _messages.shift()
-	return _messages
 }

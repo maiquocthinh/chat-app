@@ -35,9 +35,11 @@ const InputMessageBox = ({ chatId }) => {
 	}
 
 	const handleSend = async () => {
-		const messageDocRef = await addMessage({ messageText, userId: currentUser.uid, chatId })
-		await updateLastMessage({ chatId, messageDocRef })
-		setMessageText('')
+		if (messageText) {
+			const messageDocRef = await addMessage({ messageText, userId: currentUser.uid, chatId })
+			await updateLastMessage({ chatId, messageDocRef })
+			setMessageText('')
+		}
 	}
 
 	return (
