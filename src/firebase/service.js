@@ -1,4 +1,16 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
+import {
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	serverTimestamp,
+	updateDoc,
+	where,
+	writeBatch,
+} from 'firebase/firestore'
 import { db } from './config'
 
 export const getChatById = async (id) => {
@@ -48,4 +60,39 @@ export const updateLastMessage = async ({ chatId, messageDocRef }) => {
 		lastMessage: messageDocRef,
 		modifiedAt: serverTimestamp(),
 	})
+}
+
+export const deleteChat = async (chatId) => {
+	try {
+		const batch = writeBatch(db)
+		const chatDoc = await getDoc(doc(db, 'chats', chatId))
+		const chatDocData = chatDoc.data()
+		const promises = []
+		let q, querySnapshot
+
+		// chat type private (2 person)
+		if (chatDocData.type === 1) {
+			// delete all document messages of chat
+			q = query(collection(db, 'messages'), where('chatId', '==', chatId))
+			querySnapshot = await getDocs(q)
+			querySnapshot.forEach((doc) => batch.delete(doc.ref))
+
+			// delete chatinfo in user document
+			q = query(collection(db, 'users'), where('uid', 'in', chatDocData.members))
+			querySnapshot = await getDocs(q)
+			querySnapshot.forEach((doc) => {
+				batch.update(doc.ref, {
+					'chats.private': doc.data().chats.private.filter((privateItem) => privateItem.chat.id !== chatId),
+				})
+			})
+			promises.push(batch.commit())
+
+			// detele chat document
+			promises.push(deleteDoc(chatDoc.ref))
+
+			await Promise.all(promises)
+		}
+	} catch (error) {
+		console.log(error)
+	}
 }

@@ -20,7 +20,7 @@ import Dropdown, { DropdownItem, DropdownMenu, DropdownTonggle } from '../Dropdo
 import { useNavigate, useParams } from 'react-router-dom'
 import { isEmptyObject } from '../../utils'
 import Messages from './Messages'
-import { getChatById, getUserById } from '../../firebase/service'
+import { deleteChat, getChatById, getUserById } from '../../firebase/service'
 
 const UserChat = () => {
 	const { setOpenModal, setModalOptions } = useContext(ModalContext)
@@ -71,6 +71,14 @@ const UserChat = () => {
 		const chatContentDoc = document.querySelector('.chat-content')
 		chatContentDoc.classList.remove('mobile-d-none')
 		navigate('/')
+	}
+
+	const handleDeleteChat = async (e) => {
+		e.preventDefault()
+		if (window.confirm('Do you want delete this chat room?')) {
+			await deleteChat(chatId)
+			navigate('/')
+		}
 	}
 
 	return (
@@ -129,7 +137,7 @@ const UserChat = () => {
 									<DropdownItem>
 										Muted <MuteIcon height="1.4rem" width="1.4rem" />{' '}
 									</DropdownItem>
-									<DropdownItem>
+									<DropdownItem onClick={handleDeleteChat}>
 										Delete <TrashIcon height="1.4rem" width="1.4rem" />{' '}
 									</DropdownItem>
 								</DropdownMenu>

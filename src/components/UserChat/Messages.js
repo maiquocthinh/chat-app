@@ -43,9 +43,11 @@ const Messages = ({ chatId }) => {
 
 		const querySnapshot = await getDocs(q)
 		const _messages = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-		setLastKey(_messages[_messages.length - 1].createAt)
-		_messages.shift()
-		setMessages((preMessages) => [..._messages, ...preMessages])
+		if (_messages.length > 0) {
+			setLastKey(_messages[_messages.length - 1].createAt)
+			_messages.shift()
+			setMessages((preMessages) => [..._messages, ...preMessages])
+		}
 	}
 
 	const nextLoadMessagess = async () => {
@@ -60,15 +62,16 @@ const Messages = ({ chatId }) => {
 
 			const querySnapshot = await getDocs(q)
 			const _messages = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-			if (_messages.length > 0) setLastKey(_messages[_messages.length - 1].createAt)
-			else setIsEndMessages(true)
-
-			setMessages([...messages, ..._messages])
-			scrollHeightOld.current = messagesElmRef.current.parentElement.scrollHeight
+			if (_messages.length > 0) {
+				setLastKey(_messages[_messages.length - 1].createAt)
+				setMessages([...messages, ..._messages])
+				scrollHeightOld.current = messagesElmRef.current.parentElement.scrollHeight
+			} else setIsEndMessages(true)
 		}
 	}
 
 	useEffect(() => {
+		setMessages(() => [])
 		;(async () => {
 			try {
 				await firstLoadMessagess() // first load 4 messages lasted
